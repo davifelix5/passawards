@@ -1,0 +1,9 @@
+venv/
+
+.env
+
+__pycache__
+
+google-drive-key.json
+
+*.sqlite3
