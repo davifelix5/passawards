@@ -2,6 +2,10 @@ venv/
 
 .env
 
+media/
+
+*/migrations
+
 __pycache__
 
 google-drive-key.json
