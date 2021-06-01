@@ -7,31 +7,34 @@ from . import utils, validators
 
 class CategoryType(models.Model):
     name = models.CharField(max_length=100, verbose_name='Modalidade')
-    
+
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name = 'Tipo de categoria'
-    
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nome da categoria')
     description = models.TextField(verbose_name='Descrição')
-    video = models.FileField(upload_to=utils.upload_video, verbose_name='Vídeo da cateogoria')
+    video = models.FileField(upload_to=utils.upload_video,
+                             verbose_name='Vídeo da cateogoria')
     category_type = models.ForeignKey(CategoryType, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name = 'Categoria'
 
 
 class Contestant(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nome do candidato')
-    image = models.ImageField(upload_to=utils.upload_image, verbose_name='Foto do participante')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='contestants')
+    image = models.ImageField(
+        upload_to=utils.upload_image, verbose_name='Foto do participante')
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name='contestants')
     votes = models.ManyToManyField('Contestant', through='Vote')
 
     def __str__(self):

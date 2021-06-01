@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from . import models
 
+
 class FilterSerializer(serializers.ModelSerializer):
     class Meta:
-      model = models.CategoryType
-      fields = '__all__'
+        model = models.CategoryType
+        fields = '__all__'
 
 
 class ContestantSerializer(serializers.ModelSerializer):
@@ -15,10 +16,14 @@ class ContestantSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     contestants = ContestantSerializer(many=True, read_only=True)
-    category_type = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    category_type = serializers.SlugRelatedField(
+        read_only=True, slug_field='name')
+
     class Meta:
         model = models.Category
-        fields = ['id', 'name', 'description', 'video', 'category_type', 'contestants']
+        fields = ['id', 'name', 'description',
+                  'video', 'category_type', 'contestants']
+
 
 class CategoryCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,6 +33,7 @@ class CategoryCreateSerializer(serializers.ModelSerializer):
 
 class ContestantResultSerializer(ContestantSerializer):
     votes = serializers.SerializerMethodField()
+
     class Meta:
         model = models.Contestant
         fields = ['id', 'name', 'image', 'votes']

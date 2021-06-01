@@ -138,4 +138,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Google Drive Storage Settings
 #
 
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = os.path.join(BASE_DIR, 'google-drive-key.json')
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = os.path.join(
+    BASE_DIR, 'google-drive-key.json')
