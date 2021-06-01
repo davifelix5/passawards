@@ -17,3 +17,13 @@ class CategoryViewset(ModelViewSet):
         if self.request.method == 'GET':
             return serializers.CategorySerializer
         return serializers.CategoryCreateSerializer
+
+    def get_queryset(self):
+        queryset = models.Category.objects.all()
+        category_type = self.request.query_params.get('filter')
+        try:
+            return queryset.filter(category_type__id=int(category_type))
+        except TypeError:  # When filter is None
+            return queryset
+        except ValueError:  # When filter cannot be casted to int
+            return []
