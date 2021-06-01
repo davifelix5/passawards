@@ -48,7 +48,7 @@ class Vote(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'Voto em "{self.contestant.name}" pela categoria "{self.category.name}"'
+        return f'{self.contestant.name} / {self.category.name}'
 
     def full_clean(self, exclude, validate_unique):
         validators.validate_vote(self.contestant, self.category)
