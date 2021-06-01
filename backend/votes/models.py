@@ -31,7 +31,7 @@ class Category(models.Model):
 class Contestant(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nome do candidato')
     image = models.ImageField(upload_to=utils.upload_image, verbose_name='Foto do participante')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='contestants')
     votes = models.ManyToManyField('Contestant', through='Vote')
 
     def __str__(self):
