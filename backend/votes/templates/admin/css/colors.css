@@ -58,7 +58,7 @@
   
       --body-fg: #eeeeee;
       --body-bg: #121212;
-      --body-quiet-color: var(--secondary);
+      --body-quiet-color: #b4aaaa;
       --body-loud-color: #ffffff;
   
       --breadcrumbs-link-fg: #e0e0e0;
