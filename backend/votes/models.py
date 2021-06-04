@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from . import utils, validators
 # from gdstorage.storage import GoogleDriveStorage
@@ -54,7 +55,9 @@ class Vote(models.Model):
         return f'{self.contestant.name} / {self.category.name}'
 
     def full_clean(self, exclude, validate_unique):
-        validators.validate_vote(self.contestant, self.category)
+        valid = validators.validate_vote(self.contestant, self.category)
+        if not valid:
+            raise ValidationError(f'{self.contestant} não está na categoria {self.category}')
         return super().full_clean(exclude=exclude, validate_unique=validate_unique)
 
     class Meta:

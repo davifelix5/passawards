@@ -1,12 +1,14 @@
+from django.http import Http404
+from django.shortcuts import get_object_or_404, render
+from rest_framework import status, viewsets
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from django.http import Http404
 from rest_framework.decorators import action
-from django.shortcuts import get_object_or_404
+from rest_framework.mixins import CreateModelMixin
+from django.conf import settings
 
 from . import models
 from . import serializers
-
 
 class FilterViewset(ModelViewSet):
     model = models.CategoryType
@@ -19,9 +21,11 @@ class CategoryViewset(ModelViewSet):
     queryset = models.Category.objects.all()
 
     def get_serializer_class(self):
-        if self.request.method == 'GET':
-            return serializers.CategorySerializer
-        return serializers.CategoryCreateSerializer
+        if self.action == 'vote':
+            return serializers.VoteSerializer
+        elif self.request.method == 'POST':
+            return serializers.CategoryCreateSerializer
+        return serializers.CategorySerializer
 
     def get_queryset(self):
         queryset = models.Category.objects.all()
@@ -42,3 +46,20 @@ class CategoryViewset(ModelViewSet):
         result['contestants'] = sorted(
             result['contestants'], key=lambda c: c['votes'], reverse=True)
         return Response(result)
+
+
+class VoteViewSet(CreateModelMixin, viewsets.GenericViewSet):
+    model = models.Vote
+    queryset = models.Vote.objects.all()
+    serializer_class = serializers.VoteSerializer
+
+    def create(self, request, *args, **kwargs):
+        super().create(request, *args, **kwargs)
+        return Response({'response': 'Vote registrado com sucesso'}, status=status.HTTP_201_CREATED)
+
+def recaptcha(request):
+    if request.method == 'POST':
+        print(request.POST)
+    return render(request, 'recaptcha.html', {
+        'site_key': settings.CAPTCHA_CLIENT_KEY
+    })

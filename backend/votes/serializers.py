@@ -1,6 +1,8 @@
 from rest_framework import serializers
-from . import models
+from drf_recaptcha.fields import ReCaptchaV2Field
 
+from . import models
+from . import validators
 
 class FilterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,3 +46,20 @@ class ContestantResultSerializer(ContestantSerializer):
 
 class CategoryResultSerializer(CategorySerializer):
     contestants = ContestantResultSerializer(many=True, read_only=True)
+
+
+class VoteSerializer(serializers.ModelSerializer):
+    recaptcha = ReCaptchaV2Field()
+
+    class Meta:
+        model = models.Vote
+        fields = ['category', 'contestant', 'recaptcha']
+
+    def validate(self, attrs):
+        valid = validators.validate_vote(attrs['contestant'], attrs['category'])
+        if not valid:
+            raise serializers.ValidationError({
+                'contestant': 'Esse participante não está registrado na categoria'
+            })
+        attrs.pop('recaptcha')
+        return attrs

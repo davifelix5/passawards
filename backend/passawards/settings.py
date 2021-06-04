@@ -26,6 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
+CAPTCHA_CLIENT_KEY = env('CAPTCHA_CLIENT_KEY')
+DRF_RECAPTCHA_SECRET_KEY = env('CAPTCHA_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'votes.apps.VotesConfig',
     'gdstorage',
+    'drf_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +65,9 @@ ROOT_URLCONF = 'passawards.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'votes', 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

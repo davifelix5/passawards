@@ -6,8 +6,6 @@ from . import models
 def validate_vote(contestant, category):
     try:
         models.Contestant.objects.get(pk=contestant.pk, category=category)
+        return True
     except models.Contestant.DoesNotExist:
-        raise ValidationError(
-            _('"%(contestant)s" não está na categoria "%(category)s"'),
-            params={'contestant': contestant, 'category': category},
-        )
+        return False

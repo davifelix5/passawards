@@ -7,7 +7,9 @@ Django==3.2.3
 django-appconf==1.0.4
 django-environ==0.4.5
 django-googledrive-storage==1.5.2
+django-ipware==3.0.2
 djangorestframework==3.12.4
+drf-recaptcha==2.0.4
 google-api-core==1.28.0
 google-api-python-client==2.6.0
 google-auth==1.30.1
