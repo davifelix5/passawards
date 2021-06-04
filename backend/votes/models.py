@@ -1,3 +1,4 @@
+from __future__ import annotations
 from django.core.exceptions import ValidationError
 from django.db import models
 from . import utils, validators
@@ -21,7 +22,7 @@ class Category(models.Model):
     description = models.TextField(verbose_name='Descrição')
     video = models.FileField(upload_to=utils.upload_video,
                              verbose_name='Vídeo da cateogoria')
-    category_type = models.ForeignKey(CategoryType, on_delete=models.CASCADE)
+    category_type = models.ForeignKey(CategoryType, on_delete=models.CASCADE, verbose_name='Tipo')
 
     def __str__(self):
         return self.name
@@ -35,8 +36,8 @@ class Contestant(models.Model):
     image = models.ImageField(
         upload_to=utils.upload_image, verbose_name='Foto do participante')
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name='contestants')
-    votes = models.ManyToManyField('Contestant', through='Vote')
+        Category, on_delete=models.CASCADE, related_name='contestants', verbose_name='Categoria')
+    votes = models.ManyToManyField('Category', through='Vote')
 
     def __str__(self):
         return self.name
@@ -47,9 +48,9 @@ class Contestant(models.Model):
 
 
 class Vote(models.Model):
-    contestant = models.ForeignKey(Contestant, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now=True)
+    contestant = models.ForeignKey(Contestant, on_delete=models.CASCADE, verbose_name='Participante')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Cateoria')
+    timestamp = models.DateTimeField(auto_now=True, verbose_name='Data de voto')
 
     def __str__(self):
         return f'{self.contestant.name} / {self.category.name}'

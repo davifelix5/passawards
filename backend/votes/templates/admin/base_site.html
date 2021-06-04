@@ -1,0 +1,7 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Passawards - Staff') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Administração Passawards</a></h1>
+{% endblock %}
