@@ -43,5 +43,4 @@ admin.site.register(models.Category, CategoryAdmin)
 admin.site.register(models.Contestant, ContestantAdmin)
 admin.site.register(models.Vote, VoteAdmin)
 
-admin.site.unregister(User)
 admin.site.unregister(Group)
