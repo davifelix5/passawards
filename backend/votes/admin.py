@@ -7,7 +7,8 @@ from django.utils.translation import gettext_lazy as _
 
 class CategoryAdmin(admin.ModelAdmin):
     model = models.Category
-    list_display = ['id', 'name', 'category_type']
+    list_display = ['name', 'category_type']
+    list_display_links = ['name']
 
 
 class CategoryTypeAdmin(admin.ModelAdmin):
