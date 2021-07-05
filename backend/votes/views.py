@@ -14,14 +14,14 @@ from . import serializers
 from . import permissions
 
 class FilterViewset(ModelViewSet):
-    permission_classes = [permissions.IsAdminOrReadOnlyIfAuthenticated]
+    permission_classes = [permissions.IsAdminOrReadOnly]
     model = models.CategoryType
     queryset = models.CategoryType.objects.all()
     serializer_class = serializers.FilterSerializer
 
 
 class CategoryViewset(ModelViewSet):
-    permission_classes = [permissions.IsAdminOrReadOnlyIfAuthenticated]
+    permission_classes = [permissions.IsAdminOrReadOnly]
     model = models.Category
     queryset = models.Category.objects.all()
 
