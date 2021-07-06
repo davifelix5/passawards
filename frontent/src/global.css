@@ -2,7 +2,20 @@ html {
   font-size: 14px;
 }
 
+@media (max-width: 800px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 665px) {
+  html {
+    font-size: 10px;
+  }
+}
+
 * {
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
   border: none;

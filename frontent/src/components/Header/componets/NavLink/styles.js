@@ -4,11 +4,11 @@ export const LinkItem = styled.li`
     display: flex;
     align-items: center;
     justify-content: space-around;
-    & + li {
-      margin-left: 1.2rem;
-    }
+    cursor: pointer;
+
     a {
-      font-size: 1rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.3rem;
       margin: 0 0.5rem;
       color: #000;
       display: flex;
@@ -23,6 +23,12 @@ export const LinkItem = styled.li`
       }
       img {
         opacity: 1
+      }
+    }
+
+    @media (max-width: 850px) {
+      img {
+        display: none;
       }
     }
 
