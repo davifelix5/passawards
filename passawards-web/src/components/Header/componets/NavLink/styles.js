@@ -17,25 +17,30 @@ export const LinkItem = styled.li`
       color: #000;
       display: flex;
     }
-    a + img {
+    & > div {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    a + div {
       order: -1;
     }
 
-    img {
+    div div {
       opacity: 0;
     }
 
     a:hover {
       color: ${({theme}) => theme.mainBackground};
-      & ~ img {
+      & ~ div div {
         opacity: 1
       }
     }
 
     @media (max-width: 850px) {
-      img {
+      a ~ div {
         display: none;
       }
     }
-
 `

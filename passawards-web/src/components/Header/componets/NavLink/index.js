@@ -1,4 +1,8 @@
+import Image from 'next/image'
 import ActiveLink from '../ActiveLink'
+
+import leftBars from '../../../../../public/img/left-bar.png'
+import rightBars from '../../../../../public/img/right-bar.png'
 
 import {
   LinkItem
@@ -10,8 +14,12 @@ export default function NavLink({children, href}) {
       <ActiveLink activeClassName="active" href={href}>
         <a>{children}</a>
       </ActiveLink>
-      <img src="/img/left-bar.png" alt="Left bars"/>
-      <img src="/img/right-bar.png" alt="Right Bars" />
+      <div>
+        <Image src={leftBars} alt="Left bars"/>
+      </div>
+      <div>
+        <Image src={rightBars} alt="Right Bars" />
+      </div>
     </LinkItem>
   )
 }

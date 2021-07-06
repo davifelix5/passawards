@@ -1,7 +1,5 @@
 import Image from 'next/image'
 
-import placeholder from '../../../../../public/img/placeholder.png'
-
 import leftBars from '../../../../../public/img/big-bar-left.png'
 import rightBars from '../../../../../public/img/big-bar-right.png'
 
@@ -21,7 +19,7 @@ export default function Category({title, contestants, children}) {
       <ContestantsContainer>
         {contestants.map(contestant => (
           <Contestant key={contestant.name}>
-            <Image src={placeholder} alt="Candidato 3" />
+            <Image layout='intrinsic' width={100} height={100} src={contestant.image} alt={contestant.name} />
             <span>{contestant.name}</span>
           </Contestant>
         ))}     

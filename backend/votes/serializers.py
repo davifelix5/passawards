@@ -18,8 +18,8 @@ class ContestantSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     contestants = ContestantSerializer(many=True, read_only=True)
-    category_type = serializers.SlugRelatedField(
-        read_only=True, slug_field='name')
+    category_type = serializers.PrimaryKeyRelatedField(
+        read_only=True, )
 
     class Meta:
         model = models.Category

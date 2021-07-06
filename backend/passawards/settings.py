@@ -48,11 +48,13 @@ INSTALLED_APPS = [
     'votes.apps.VotesConfig',
     'gdstorage',
     'drf_recaptcha',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -118,6 +120,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ]
 }
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

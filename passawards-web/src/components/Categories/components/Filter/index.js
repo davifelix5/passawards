@@ -1,5 +1,7 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+
+import CategoriesContext from '../../../../contexts/categoriesContext'
 
 import arrowUp from '../../../../../public/img/arrow-up.png'
 import arrowDown from '../../../../../public/img/arrow-down.png'
@@ -13,31 +15,35 @@ import {
 
 export default function Filter() {
   const [active, setActive] = useState(true)
+
+  const { filters, selectedFilters, selectFilter, removeFilter, clearSelectedFilters } = useContext(CategoriesContext)
+  
+  function handleFilterClick(filterId) {
+    if (selectedFilters.find(id => id === filterId)) {
+      return removeFilter(filterId)
+    }
+    selectFilter(filterId)
+  }
+  
   return (
     <FilterContainer>
       <FilterTitle active={active}>
+        <label htmlFor="toggle-btn">
         <h3>Filtros</h3>
-        <button onClick={() => setActive(!active)}>
+        </label>
+        <button onClick={() => setActive(!active)} id="toggle-btn">
           <Image src={active ? arrowUp : arrowDown} alt="Toggle fiters" />
         </button>
       </FilterTitle>
       <FilterContent active={active}>
-        <FilterItem className="selected">
-          <div></div>
-          <span>Todos</span>
-        </FilterItem>
-        <FilterItem>
-          <div></div>
-          <span>Sérios</span>
-        </FilterItem>
-        <FilterItem>
-          <div></div>
-          <span>Zoeira</span>
-        </FilterItem>
-        <FilterItem>
-          <div></div>
-          <span>Professores</span>
-        </FilterItem>
+      <FilterItem selected={selectedFilters.length === 0} onClick={() => clearSelectedFilters()}>
+            <span>Todos</span>
+      </FilterItem>
+        {filters.map(filter => (
+          <FilterItem selected={selectedFilters.find(id => id === filter.id)} key={filter.id} onClick={() => handleFilterClick(filter.id)}>
+            <span>{filter.name}</span>
+          </FilterItem>
+        ))}
       </FilterContent>
     </FilterContainer>
   )

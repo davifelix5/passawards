@@ -65,15 +65,16 @@ export const FilterItem = styled.button`
   & + & {
     margin-left: 1.2rem;
   }
-  &.selected div {
-    background-color: ${({theme}) => theme.mainBackground}
-  }
+  
   &:hover {
-    div {
-      border-color: ${({theme}) => theme.mainBackground}
+    &::before {
+      border-color: ${({theme, selected}) => selected ? null : theme.mainBackground}
     }
   }
-  div {
+
+  &::before {
+    content: ' ';
+    background-color: ${({theme, selected}) => selected ? theme.mainBackground : 'none'};
     margin-right: 0.6rem;
     width: 1rem;
     height: 1rem;

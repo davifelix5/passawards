@@ -37,8 +37,9 @@ export const Contestant = styled.li`
   & + & {
     margin-left: 0.5rem;
   }
-  img {
+  div {
     margin-bottom: 0.5rem;
+    border-radius: 50%;
   }
   span {
     color: #FFF;
