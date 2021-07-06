@@ -4,9 +4,9 @@ export const LinkItem = styled.li`
     display: flex;
     align-items: center;
     justify-content: space-around;
-    cursor: pointer;
-
+    
     a {
+      cursor: pointer;
       font-family: 'Nunito', sans-serif;
       font-size: 1.3rem;
       margin: 0 0.5rem;

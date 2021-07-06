@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components'
 import theme from './theme'
 
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Routes from './routes'
 import { MainWrapper } from './styles'
 
@@ -16,6 +17,7 @@ function App() {
         <MainWrapper>
           <Routes />
         </MainWrapper>
+        <Footer />
       </ThemeProvider>
     </BrowserRouter>
   );
