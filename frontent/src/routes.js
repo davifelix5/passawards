@@ -1,6 +1,9 @@
 import { Route, Switch } from 'react-router-dom'
 
 import Categories from './pages/Categories'
+import About from './pages/About'
+import Tutorial from './pages/Tutorial'
+import Contestants from './pages/Contestants'
 
 export default function Routes() {
   return (
@@ -9,13 +12,13 @@ export default function Routes() {
         <Categories />
       </Route>
       <Route path="/about">
-        <h1>About</h1>
+        <About />
       </Route>
       <Route path="/tutorial">
-        <h1>Tutorial</h1>
+        <Tutorial />
       </Route>
       <Route path="/contestants">
-        <h1>Contestants</h1>
+        <Contestants />
       </Route>
     </Switch>
   )

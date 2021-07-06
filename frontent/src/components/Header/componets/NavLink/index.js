@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { NavLink as NLink } from 'react-router-dom'
+import { ThemeContext } from 'styled-components'
 
 import leftBars from '../../../../assets/img/left-bar.png'
 import rightBars from '../../../../assets/img/right-bar.png'
@@ -9,12 +10,13 @@ import {
 } from './styles'
 
 export default function NavLink({children, href}) {
+    const { mainBackground } = useContext(ThemeContext)
   return (
     <LinkItem>
-      <img src={leftBars} alt="Left bars"/>
-      <Link to={href}>
+      <NLink exact activeStyle={{color: mainBackground}} to={href} id={href}>
         {children}
-      </Link>
+      </NLink>
+      <img src={leftBars} className="left" alt="Left bars"/>
       <img src={rightBars} alt="Right Bars" />
     </LinkItem>
   )

@@ -13,15 +13,17 @@ export const LinkItem = styled.li`
       color: #000;
       display: flex;
     }
+    img.left {
+      order: -1;
+    }
+
     img {
       opacity: 0;
     }
 
-    &:hover {
-      a {
-        color: ${({theme}) => theme.mainBackground};
-      }
-      img {
+    a:hover {
+      color: ${({theme}) => theme.mainBackground};
+      & ~ img {
         opacity: 1
       }
     }
