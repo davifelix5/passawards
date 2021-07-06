@@ -1,17 +1,23 @@
+import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import theme from './theme'
 
-import Categories from './components/Categories'
 import Header from './components/Header'
+import Routes from './routes'
+import { MainWrapper } from './styles'
 
 import './global.css'
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Header />
-      <Categories />
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Header />
+        <MainWrapper>
+          <Routes />
+        </MainWrapper>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

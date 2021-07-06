@@ -15,16 +15,16 @@ export default function Header() {
       <img src = {logo} alt="Logo do Passwards"/>
       <Navbar>
         <ul>
-          <NavLink href="#">
+          <NavLink href="/">
+            Votar
+          </NavLink>
+          <NavLink href="/about">
             O que é
           </NavLink>
-          <NavLink href="#">
-            Objetivos
-          </NavLink>
-          <NavLink href="#">
+          <NavLink href="/tutorial">
             Como votar
           </NavLink>
-          <NavLink href="#">
+          <NavLink href="/contestants">
             Os competidores
           </NavLink>
         </ul>

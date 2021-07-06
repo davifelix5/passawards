@@ -20,7 +20,7 @@ export default function Category({title, contestants, children}) {
     <CategoryContainer>
       <ContestantsContainer>
         {contestants.map(contestant => (
-          <Contestant>
+          <Contestant key={contestant.name}>
             <img src={placeholder} alt="Candidato 3" />
             <span>{contestant.name}</span>
           </Contestant>

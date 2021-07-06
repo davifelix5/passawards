@@ -7,14 +7,9 @@ export const CategoriesContainer = styled.main`
   align-items: center;
 `
 
-export const MainWrapper = styled.div`
+export const CategoriesWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: calc(100vh - 6.4rem);
-  background-color: ${({theme}) => theme.mainBackground};
-  padding: 10px 130px;
-  @media (max-width: 1135px) {
-    padding: 10px;
-  }
+  width: 100%;
 `

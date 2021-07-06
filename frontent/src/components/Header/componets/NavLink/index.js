@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import leftBars from '../../../../assets/img/left-bar.png'
 import rightBars from '../../../../assets/img/right-bar.png'
@@ -11,9 +12,9 @@ export default function NavLink({children, href}) {
   return (
     <LinkItem>
       <img src={leftBars} alt="Left bars"/>
-      <a href={href}>
+      <Link to={href}>
         {children}
-      </a>
+      </Link>
       <img src={rightBars} alt="Right Bars" />
     </LinkItem>
   )

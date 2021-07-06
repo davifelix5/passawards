@@ -10,6 +10,7 @@ export const HeaderContainer = styled.header`
     padding: 10px;
   }
   @media (max-width: 600px) {
+    flex-direction: column;
     justify-content: center;
   }
   & > img:first-child {
@@ -24,7 +25,7 @@ export const Navbar = styled.nav`
   }
 
   @media (max-width: 600px) {
-    display: none;
+    margin-top: 1rem;
   }
 
 `
