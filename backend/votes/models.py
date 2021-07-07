@@ -2,6 +2,7 @@ from __future__ import annotations
 from django.core.exceptions import ValidationError
 from django.db import models
 from . import utils, validators
+from ckeditor.fields import RichTextField
 # from gdstorage.storage import GoogleDriveStorage
 
 # gd_storage = GoogleDriveStorage()
@@ -19,7 +20,7 @@ class CategoryType(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nome da categoria')
-    description = models.TextField(verbose_name='Descrição')
+    description = RichTextField(verbose_name='Descrição')
     video = models.FileField(upload_to=utils.upload_video,
                              verbose_name='Vídeo da cateogoria')
     category_type = models.ForeignKey(CategoryType, on_delete=models.CASCADE, verbose_name='Tipo')

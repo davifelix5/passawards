@@ -5,9 +5,12 @@ certifi==2021.5.30
 chardet==4.0.0
 Django==3.2.3
 django-appconf==1.0.4
+django-ckeditor==6.1.0
+django-cors-headers==3.7.0
 django-environ==0.4.5
 django-googledrive-storage==1.5.2
 django-ipware==3.0.2
+django-js-asset==1.2.2
 djangorestframework==3.12.4
 drf-recaptcha==2.0.4
 google-api-core==1.28.0

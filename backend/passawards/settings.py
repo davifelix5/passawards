@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'gdstorage',
     'drf_recaptcha',
     'corsheaders',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -138,6 +139,19 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'moono',
+        'toolbar_Basic': [
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList','JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['TextColor', 'BGColor'],
+        ],
+        'toolbar': 'Basic',
+        'tabSpaces': 4,
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
