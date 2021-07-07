@@ -16,7 +16,13 @@ import {
 export default function Filter() {
   const [active, setActive] = useState(true)
 
-  const { filters, selectedFilters, selectFilter, removeFilter, clearSelectedFilters } = useContext(CategoriesContext)
+  const { 
+    filters, 
+    selectedFilters, 
+    selectFilter, 
+    removeFilter, 
+    clearSelectedFilters 
+  } = useContext(CategoriesContext)
   
   function handleFilterClick(filterId) {
     if (selectedFilters.find(id => id === filterId)) {

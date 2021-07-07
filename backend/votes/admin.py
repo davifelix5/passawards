@@ -1,15 +1,18 @@
 from django.contrib import admin
 from django.db.models import Count
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from . import models
 from django.utils.translation import gettext_lazy as _
+
+class ContestantInLine(admin.TabularInline):
+    model = models.Contestant
 
 
 class CategoryAdmin(admin.ModelAdmin):
     model = models.Category
     list_display = ['name', 'category_type']
     list_display_links = ['name']
-
+    inlines = [ContestantInLine]
 
 class CategoryTypeAdmin(admin.ModelAdmin):
     model = models.CategoryType

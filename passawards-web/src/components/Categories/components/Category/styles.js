@@ -4,8 +4,8 @@ export const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 27rem;
   height: 100%;
+  max-width: 30rem;
   margin: 1rem;
   background-color: ${({theme}) => theme.categoryBackground};
   border-radius: 15px;
@@ -23,7 +23,6 @@ export const CategoryContainer = styled.div`
 export const ContestantsContainer = styled.ul`
   padding: 1rem;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   border-bottom: 5px solid ${({theme}) => theme.barBackground};
   width: 100%;
@@ -35,7 +34,7 @@ export const Contestant = styled.li`
   align-items: center;
   justify-content: center;
   & + & {
-    margin-left: 0.5rem;
+    margin-left: 1.5rem;
   }
   div {
     margin-bottom: 0.5rem;
