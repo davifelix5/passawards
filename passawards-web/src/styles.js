@@ -4,7 +4,11 @@ import styled from 'styled-components'
 export const MainWrapper = styled.div`
   min-height: calc(100vh - 11.2rem);
   background-color: ${({theme}) => theme.mainBackground};
-  padding: 10px 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 130px;
   @media (max-width: 1135px) {
     padding: 10px;
   }
@@ -43,5 +47,19 @@ export const Signature = styled.p`
   margin-top: 2rem;
   font-weight: bold;
   align-self: flex-end;
+
+`
+
+export const ErrorContainer = styled.div`
+  color: #FFF;
+  text-align: center;
+  h1 {
+    font-family: 'Sigmar One', cursive;
+    color: ${({theme}) => theme.barBackground};
+  }
+  p {
+    font-size: 1.3rem;
+    font-family: 'Patua One', cursive;
+  }
 
 `

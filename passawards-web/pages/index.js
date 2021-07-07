@@ -1,30 +1,57 @@
 import Categories from '../src/components/Categories'
 
-import CategoriesContext, { CategoriesContextProvider } from '../src/contexts/categoriesContext'
+import { CategoriesContextProvider } from '../src/contexts/categoriesContext'
+
+import {
+  ErrorContainer,
+} from '../src/styles'
 
 import api from '../src/services/api'
 
 
-export default function Home({categories, filters}) {
+export default function Home({ categories, filters, error }) {
   return (
-    <CategoriesContextProvider value={{categories, filters}}>
-      <Categories />
-    </CategoriesContextProvider>
+    !error ? (
+      <CategoriesContextProvider value={{categories, filters}}>
+        <Categories />
+      </CategoriesContextProvider>
+    ) : (
+      <ErrorContainer>
+        <h1>Ocorre um erro de conexão no servidor :(</h1>
+        <p>Tente novamente mais tarde!</p>
+      </ErrorContainer>
+    )
   )
 }
 
 export async function getStaticProps(context) {
-  const categoriesResponse = await api.get('/categories/')
-  const filtersResponse = await api.get('/filters/')
 
-  const categories = categoriesResponse.data
-  const filters = filtersResponse.data
-
-  return {
-    props: {
-      categories,
-      filters,
-    },
-    revalidate: 60,
+  try {
+    const categoriesResponse = await api.get('/categories/')
+    const filtersResponse = await api.get('/filters/')
+    
+    const categories = categoriesResponse.data
+    const filters = filtersResponse.data
+    
+    return {
+      props: {
+        categories,
+        filters,
+      },
+      revalidate: 60,
+    }
+  } catch (err) {
+    
+    return {
+      props: {
+        categories: [],
+        filters: [],
+        error: true,
+      }
+    }
+  
   }
+
+
+  
 }

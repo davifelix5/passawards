@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const FilterContainer = styled.div`
   font-family: 'Nunito', sans-serif;
   display: flex;
-  margin: 2rem 0;
+  margin-bottom: 1rem;
   flex-direction: row;
   justify-content: center;
   background-color: ${({theme}) => theme.filterBackground};
