@@ -10,9 +10,17 @@ class ContestantInLine(admin.TabularInline):
 
 class CategoryAdmin(admin.ModelAdmin):
     model = models.Category
-    list_display = ['name', 'category_type']
+    list_display = ['name', 'find_winner', 'category_type']
     list_display_links = ['name']
     inlines = [ContestantInLine]
+
+    @admin.display(description='Vencedor')
+    def find_winner(self, obj):
+        qs = obj.contestant_set.annotate(_count_votes=Count('votes'))\
+            .order_by('-_count_votes')
+        winner = qs.first()
+        return winner.name if winner else 'Sem votos'
+
 
 class CategoryTypeAdmin(admin.ModelAdmin):
     model = models.CategoryType
@@ -22,9 +30,6 @@ class ContestantAdmin(admin.ModelAdmin):
     model = models.Contestant
     list_display = ['name', 'category', 'count_votes']
     list_filter = ['category']
-
-    def count_votes(self, obj):
-        return obj.count_votes()
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
