@@ -29,9 +29,9 @@ export default function Category({title, contestants, children}) {
         {children}
       </CategoryDescription>
       <VoteButton>
-        <Image src={leftBars} alt="Bars left" />
+        <Image src={leftBars} layout="intrinsic" alt="Bars left" />
         <span>VOTAR</span>
-        <Image src={rightBars} alt="Bars right" />
+        <Image src={rightBars} layout="intrinsic" alt="Bars right" />
       </VoteButton>
     </CategoryContainer>
   )

@@ -27,6 +27,9 @@ export const FilterTitle = styled.div`
     font-weight: bold;
   }
   button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     background: none;
     display: none;

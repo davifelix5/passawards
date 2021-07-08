@@ -33,14 +33,14 @@ export default function Filter() {
   
   return (
     <FilterContainer>
+      <label htmlFor="toggle-btn">
       <FilterTitle active={active}>
-        <label htmlFor="toggle-btn">
-        <h3>Filtros</h3>
-        </label>
-        <button onClick={() => setActive(!active)} id="toggle-btn">
-          <Image src={active ? arrowUp : arrowDown} alt="Toggle fiters" />
-        </button>
+          <h3>Filtros</h3>
+          <button onClick={() => setActive(!active)} id="toggle-btn">
+            <Image src={active ? arrowUp : arrowDown} alt="Toggle fiters" />
+          </button>
       </FilterTitle>
+      </label>
       <FilterContent active={active}>
       <FilterItem selected={selectedFilters.length === 0} onClick={() => clearSelectedFilters()}>
             <span>Todos</span>

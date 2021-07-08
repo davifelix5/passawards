@@ -1,5 +1,4 @@
-import { allowedStatusCodes } from 'next/dist/lib/load-custom-routes'
-import { createContext, useCallback, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 const CategoriesContext = createContext({})
 
@@ -7,9 +6,9 @@ export default CategoriesContext
 
 export function CategoriesContextProvider({children, value}) {
   const allCategories = value.categories
-  const [categories, setCategories] = useState(allCategories)
-  const [filters, setFilters] = useState(value.filters)
+  const filters = value.filters
 
+  const [categories, setCategories] = useState(allCategories)
   const [selectedFilters, setSelectedFilters] = useState([])
   
   
@@ -18,12 +17,15 @@ export function CategoriesContextProvider({children, value}) {
       if (selectedFilters.length === 0) {
         return setCategories(allCategories)
       }
+
       let newCategories = []
       for (let filterId of selectedFilters) {
         newCategories = newCategories.concat(allCategories.filter(cat => cat.category_type == filterId))
       }
+
       setCategories(newCategories.sort((cat1, cat2) => cat1.id - cat2.id))
     }
+
     filterCategories()
   }, [selectedFilters, setCategories])
 

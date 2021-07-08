@@ -4,10 +4,6 @@ import styled from 'styled-components'
 export const MainWrapper = styled.div`
   min-height: calc(100vh - 11.2rem);
   background-color: ${({theme}) => theme.mainBackground};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 1.5rem 130px;
   @media (max-width: 1135px) {
     padding: 10px;
@@ -52,7 +48,11 @@ export const Signature = styled.p`
 
 export const ErrorContainer = styled.div`
   color: #FFF;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 14.2rem);
   h1 {
     font-family: 'Sigmar One', cursive;
     color: ${({theme}) => theme.barBackground};

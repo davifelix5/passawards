@@ -14,9 +14,6 @@ export const CategoryContainer = styled.div`
   }
   @media (max-width: 500px) {
     width: 95%;
-    button {
-      height: 3.5rem;
-    }
   }
   `
 
@@ -34,13 +31,14 @@ export const Contestant = styled.li`
   align-items: center;
   justify-content: center;
   & + & {
-    margin-left: 1.5rem;
+    margin-left: 1.5rem;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
   }
   div {
     margin-bottom: 0.5rem;
-    border-radius: 50%;
+    border-radius: 50%;                                               
   }
   span {
+    text-align: center;
     color: #FFF;
     font-family: 'Sigmar One', cursive;
   }
@@ -79,6 +77,13 @@ export const VoteButton = styled.button`
   img {
     opacity: 0;
   }
+  
+  @media (max-width: 665px) {
+    img {
+      width: 2rem;
+    }
+  }
+
   &:hover {
     color: ${({theme}) => theme.mainBackground};
     img {
