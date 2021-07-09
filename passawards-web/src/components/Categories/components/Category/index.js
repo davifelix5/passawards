@@ -1,7 +1,5 @@
 import Image from 'next/image'
-
-import leftBars from '../../../../../public/img/big-bar-left.png'
-import rightBars from '../../../../../public/img/big-bar-right.png'
+import { useRouter } from 'next/router'
 
 import {
   
@@ -9,11 +7,19 @@ import {
   CategoryDescription,
   ContestantsContainer,
   Contestant,
-  VoteButton,
 
 } from './styles'
 
-export default function Category({title, contestants, children}) {
+import VoteButton from '../../../VoteButton'
+
+export default function Category({id, title, contestants, children}) {
+  
+  const router = useRouter()
+
+  function handleVoteClick() {
+    router.push(`/vote/${id}`)
+  }
+
   return (
     <CategoryContainer>
       <ContestantsContainer>
@@ -28,11 +34,7 @@ export default function Category({title, contestants, children}) {
         <h2>{title}</h2>
         {children}
       </CategoryDescription>
-      <VoteButton>
-        <Image src={leftBars} layout="intrinsic" alt="Bars left" />
-        <span>VOTAR</span>
-        <Image src={rightBars} layout="intrinsic" alt="Bars right" />
-      </VoteButton>
+      <VoteButton fontSize="1.5rem" onClick={handleVoteClick} />
     </CategoryContainer>
   )
 }

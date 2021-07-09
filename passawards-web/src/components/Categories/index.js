@@ -18,7 +18,7 @@ export default function Categories() {
       <Filter />
       <CategoriesContainer>
         {categories.map(category => (
-          <Category key={category.id} title={category.name} contestants={category.contestants.map(contestant => ({
+          <Category key={category.id} id={category.id} title={category.name} contestants={category.contestants.map(contestant => ({
             id: contestant.id, image: contestant.image, name: contestant.name,
           }))}>
             {ReactHtmlParser(category.description)}
