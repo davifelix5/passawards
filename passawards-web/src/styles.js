@@ -46,7 +46,7 @@ export const Signature = styled.p`
 
 `
 
-export const ErrorContainer = styled.div`
+export const CenterContainer = styled.div`
   color: #FFF;
   display: flex;
   flex-direction: column;
@@ -62,4 +62,35 @@ export const ErrorContainer = styled.div`
     font-family: 'Patua One', cursive;
   }
 
+`
+
+export const Loader = styled.div`
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0)
+    }
+    100% {
+      transform: rotate(360deg)
+    }
+  }
+  margin: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 0.4rem solid ${({ theme }) => theme.barBackground};
+  border-top: 0.4rem solid ${({theme}) => theme.categoryBackground};
+  animation: spin 1s linear infinite;
+`
+
+export const Message = styled.div`
+  font-family: 'Poppins', sans-serif;
+  position: fixed;
+  font-size: 1rem;
+  z-index: 1000;
+  bottom: 0;
+  right: 0;
+  background-color: green;
+  padding: 1.3rem;
+  color: #FFF;
 `

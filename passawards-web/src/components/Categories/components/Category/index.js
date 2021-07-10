@@ -10,7 +10,7 @@ import {
 
 } from './styles'
 
-import VoteButton from '../../../VoteButton'
+import MainButton from '../../../MainButton'
 
 export default function Category({id, title, contestants, children}) {
   
@@ -34,7 +34,9 @@ export default function Category({id, title, contestants, children}) {
         <h2>{title}</h2>
         {children}
       </CategoryDescription>
-      <VoteButton fontSize="1.5rem" onClick={handleVoteClick} />
+      <MainButton fontSize="1.5rem" onClick={handleVoteClick}>
+        Votar
+      </MainButton>
     </CategoryContainer>
   )
 }

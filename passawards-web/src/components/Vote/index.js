@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+
 import Contestant from './components/Contestat'
 
 import {
@@ -6,11 +8,29 @@ import {
   ContestatContainer,
 } from './styles'
 
+import { 
+  Message
+} from '../../styles'
+
+import VoteContext from './contexts/voteContext'
+
+import VoteConfirm from './components/VoteConfirm'
+
 import ReactHtmlParser from 'react-html-parser'
 
-export default function Category({ name, contestants, description, videoUrl }) {
+export default function Vote({ id, name, contestants, description, videoUrl }) {
+  
+  const { contestantToVote, success } = useContext(VoteContext)
+
+
   return (
     <CategoryContainer>
+      {success && (
+        <Message>
+          Voto registrado com sucesso
+        </Message>
+      )}
+      {contestantToVote && <VoteConfirm />}
       <h1>{name}</h1>
       
       <video controls>
@@ -25,7 +45,12 @@ export default function Category({ name, contestants, description, videoUrl }) {
       
       <ContestatContainer>
         {contestants.map(contestant => (
-          <Contestant key={contestant.id} name={contestant.name} image={contestant.image} />
+          <Contestant 
+            key={contestant.id}
+            id={contestant.id}
+            name={contestant.name} 
+            image={contestant.image}
+          />
         ))}
       </ContestatContainer>
 

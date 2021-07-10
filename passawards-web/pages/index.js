@@ -3,7 +3,7 @@ import Categories from '../src/components/Categories'
 import { CategoriesContextProvider } from '../src/contexts/categoriesContext'
 
 import {
-  ErrorContainer,
+  CenterContainer,
 } from '../src/styles'
 
 import api from '../src/services/api'
@@ -16,10 +16,10 @@ export default function Home({ categories, filters, error }) {
         <Categories />
       </CategoriesContextProvider>
     ) : (
-      <ErrorContainer>
+      <CenterContainer>
         <h1>Ocorre um erro de conexão no servidor :(</h1>
         <p>Tente novamente mais tarde!</p>
-      </ErrorContainer>
+      </CenterContainer>
     )
   )
 }

@@ -7,11 +7,11 @@ import {
 import leftBars from '../../../public/img/big-bar-left.png'
 import rightBars from '../../../public/img/big-bar-right.png'
 
-export default function VoteButton({ onClick }) {
+export default function MainButton({ onClick, children, ...props }) {
   return (
-    <Button onClick={onClick}>
+    <Button onClick={onClick} {...props}>
       <Image src={leftBars} layout="intrinsic" alt="Bars left" />
-      <span>VOTAR</span>
+      <span>{children}</span>
       <Image src={rightBars} layout="intrinsic" alt="Bars right" />
     </Button>
   )

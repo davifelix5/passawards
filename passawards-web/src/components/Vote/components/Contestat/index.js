@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+
 import Image from 'next/image'
 
 import {
@@ -5,16 +7,24 @@ import {
   ContestantInfo,
 } from './styles'
 
-import VoteButton from '../../../VoteButton'
+import VoteContext from '../../contexts/voteContext'
 
-export default function Contestant({ name, image }) {
+import MainButton from '../../../MainButton'
+
+
+export default function Contestant({ id, name, image }) {
+
+  const { setContestantToVote } = useContext(VoteContext)
+
   return (
     <ContestantContainer>
       <ContestantInfo>
         <Image height={160} width={160} layout="intrinsic" src={image} alt={name} />
         <h3>{name}</h3>
-      </ContestantInfo>
-      <VoteButton />
+      </ContestantInfo> 
+      <MainButton onClick={() => setContestantToVote(id)}>
+        Votar
+      </MainButton>
     </ContestantContainer>
   )
 }
