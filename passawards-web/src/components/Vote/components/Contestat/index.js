@@ -22,7 +22,7 @@ export default function Contestant({ id, name, image }) {
         <Image height={160} width={160} layout="intrinsic" src={image} alt={name} />
         <h3>{name}</h3>
       </ContestantInfo> 
-      <MainButton onClick={() => setContestantToVote(id)}>
+      <MainButton onClick={() => setContestantToVote({id, name})}>
         Votar
       </MainButton>
     </ContestantContainer>

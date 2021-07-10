@@ -9,13 +9,13 @@ export default VoteContext
 export function VoteContextProvider({ children, categoryId, sitekey }) {
 
   const [recaptcha, setRecaptcha] = useState('')
-  const [contestantId, setContestantId] = useState(null)
+  const [contestant, setContestant] = useState(null)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [success, setSuccess] = useState(false)
   
-  function setContestantToVote(id) {
-    setContestantId(id)
+  function setContestantToVote(contestant) {
+    setContestant(contestant)
   }
 
   async function handleVote() {
@@ -24,13 +24,15 @@ export function VoteContextProvider({ children, categoryId, sitekey }) {
     try {
       await api.post('/vote/', {
         category: categoryId,
-        contestant: contestantId,
+        contestant: contestant.id,
         recaptcha,
       })
-      setContestantId(null)
+      setContestant(null)
       setSuccess(true)
+      setMessage(`Voto em ${contestant.name} confimado!`)
       setTimeout(() => {
         setSuccess(false)
+        setMessage('')
       }, 2000);
     } catch (err) {
       setMessage('Erro ao votar: Dados inválidos')
@@ -44,7 +46,7 @@ export function VoteContextProvider({ children, categoryId, sitekey }) {
       recaptcha, setRecaptcha,
       handleVote,
       loading,
-      setContestantToVote, contestantToVote: contestantId,
+      setContestantToVote, contestantToVote: contestant,
       message, setMessage,
       sitekey,
       success,

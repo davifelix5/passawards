@@ -37,7 +37,6 @@ export default function Vote({ category, error, sitekey }) {
     !error ? (
       <VoteContextProvider categoryId={id} sitekey={sitekey} >
         <VotePage 
-          id={id}
           contestants={contestants}
           description={description}
           name={name}

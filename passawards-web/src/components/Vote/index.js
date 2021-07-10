@@ -18,16 +18,16 @@ import VoteConfirm from './components/VoteConfirm'
 
 import ReactHtmlParser from 'react-html-parser'
 
-export default function Vote({ id, name, contestants, description, videoUrl }) {
+export default function Vote({ name, contestants, description, videoUrl }) {
   
-  const { contestantToVote, success } = useContext(VoteContext)
+  const { contestantToVote, success, message } = useContext(VoteContext)
 
 
   return (
     <CategoryContainer>
       {success && (
         <Message>
-          Voto registrado com sucesso
+          {message}
         </Message>
       )}
       {contestantToVote && <VoteConfirm />}

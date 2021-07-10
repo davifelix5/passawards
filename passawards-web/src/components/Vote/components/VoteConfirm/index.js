@@ -30,6 +30,7 @@ export default function VoteConfirm() {
     message,
     setMessage,
     sitekey,
+    success,
   } = useContext(VoteContext)
 
   function handleCloseModal() {
@@ -52,7 +53,7 @@ export default function VoteConfirm() {
             onChange={setRecaptcha}
             size='compact'
           />
-          <Feedback show={message !== ''}>
+          <Feedback show={message !== '' && !success}>
             {message}
           </Feedback>
         </ModalBody>
