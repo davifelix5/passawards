@@ -98,12 +98,14 @@ export async function getStaticProps(context) {
         sitekey: process.env.RECAPTCHA_CLIENT_KEY,
         credentials: { USERNAME, PASSWORD }
       },
+      revalidate: 60,
     }
   } catch (err) {
     return {
       props: {
         category: {},
         error: true,
+        revalidate: 60,
       }
     }
   }
