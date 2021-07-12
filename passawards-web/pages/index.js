@@ -27,8 +27,11 @@ export default function Home({ categories, filters, error }) {
 export async function getStaticProps(context) {
 
   try {
-    const categoriesResponse = await api.get('/categories/')
-    const filtersResponse = await api.get('/filters/')
+    const USERNAME = process.env.API_USERNAME
+    const PASSWORD = process.env.API_PASSWORD
+
+    const categoriesResponse = await api(USERNAME, PASSWORD).get('/categories/')
+    const filtersResponse = await api(USERNAME, PASSWORD).get('/filters/')
     
     const categories = categoriesResponse.data
     const filters = filtersResponse.data

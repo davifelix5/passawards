@@ -5,23 +5,21 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.mixins import CreateModelMixin
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 from django.conf import settings
 
 from . import models
 from . import serializers
-from . import permissions
+
 
 class FilterViewset(ModelViewSet):
-    permission_classes = [permissions.IsAdminOrReadOnly]
     model = models.CategoryType
     queryset = models.CategoryType.objects.all()
     serializer_class = serializers.FilterSerializer
 
 
 class CategoryViewset(ModelViewSet):
-    permission_classes = [permissions.IsAdminOrReadOnly]
     model = models.Category
     queryset = models.Category.objects.all()
 
@@ -54,7 +52,7 @@ class CategoryViewset(ModelViewSet):
 
 
 class VoteViewSet(CreateModelMixin, viewsets.GenericViewSet):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     model = models.Vote
     queryset = models.Vote.objects.all()
     serializer_class = serializers.VoteSerializer

@@ -13,7 +13,7 @@ import {
   Loader
 } from '../../src/styles'
 
-export default function Vote({ category, error, sitekey }) {
+export default function Vote({ category, error, sitekey, credentials }) {
 
   const { isFallback } = useRouter()
 
@@ -35,7 +35,7 @@ export default function Vote({ category, error, sitekey }) {
 
   return (
     !error ? (
-      <VoteContextProvider categoryId={id} sitekey={sitekey} >
+      <VoteContextProvider categoryId={id} sitekey={sitekey} credentials={credentials}>
         <VotePage 
           contestants={contestants}
           description={description}
@@ -55,7 +55,11 @@ export default function Vote({ category, error, sitekey }) {
 export async function getStaticPaths() {
   
   try {
-    const categoriesResponse = await api.get('/categories/')
+    
+    const USERNAME = process.env.API_USERNAME 
+    const PASSWORD = process.env.API_PASSWORD 
+
+    const categoriesResponse = await api(USERNAME, PASSWORD).get('/categories/')
     const categories = categoriesResponse.data
   
     const paths = categories.map(cat => {
@@ -70,7 +74,7 @@ export async function getStaticPaths() {
     }
   } catch (err) {
     return {
-      pahs: [],
+      paths: [],
       fallback: true,
     }
   }
@@ -79,22 +83,27 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
 
   try {
+
+    const USERNAME = process.env.API_USERNAME
+    const PASSWORD = process.env.API_PASSWORD
+    
     const { category } = context.params
     
-    const categoryResponse = await api.get(`/categories/${category}/`)
+    const categoryResponse = await api(USERNAME, PASSWORD).get(`/categories/${category}/`)
     const categoryData = categoryResponse.data
     
     return {
       props: {
         category: categoryData,
         sitekey: process.env.RECAPTCHA_CLIENT_KEY,
+        credentials: { USERNAME, PASSWORD }
       },
     }
   } catch (err) {
     return {
       props: {
         category: {},
-        error: true
+        error: true,
       }
     }
   }
