@@ -19,8 +19,8 @@ export const CategoryContainer = styled.div`
 
 export const ContestantsContainer = styled.ul`
   padding: 1rem;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: auto auto auto;
   border-bottom: 5px solid ${({theme}) => theme.barBackground};
   width: 100%;
 `
@@ -30,9 +30,7 @@ export const Contestant = styled.li`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  & + & {
-    margin-left: 1.5rem;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-  }
+  margin: 0.5rem;
   div {
     margin-bottom: 0.5rem;
     border-radius: 50%;                                               
