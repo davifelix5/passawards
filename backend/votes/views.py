@@ -21,7 +21,7 @@ class FilterViewset(ModelViewSet):
 
 class CategoryViewset(ModelViewSet):
     model = models.Category
-    queryset = models.Category.objects.all()
+    queryset = models.Category.objects.all().order_by('id')
 
     def get_serializer_class(self):
         if self.action == 'vote':
@@ -31,7 +31,7 @@ class CategoryViewset(ModelViewSet):
         return serializers.CategorySerializer
 
     def get_queryset(self):
-        queryset = models.Category.objects.all()
+        queryset = models.Category.objects.all().order_by('id')
         category_type = self.request.query_params.get('filter')
         try:
             return queryset.filter(category_type__id=int(category_type))
