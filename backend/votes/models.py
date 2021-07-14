@@ -36,6 +36,7 @@ class Contestant(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nome do candidato')
     image = models.ImageField(
         upload_to=utils.upload_image, verbose_name='Foto do participante')
+    description = RichTextField(verbose_name='Descrição', null=True)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='contestants', verbose_name='Categoria')
     votes = models.ManyToManyField('Category', through='Vote')

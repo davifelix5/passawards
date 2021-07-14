@@ -13,7 +13,7 @@ class FilterSerializer(serializers.ModelSerializer):
 class ContestantSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Contestant
-        fields = ['id', 'name', 'image']
+        fields = ['id', 'name', 'description', 'image']
 
 
 class CategorySerializer(serializers.ModelSerializer):
