@@ -27,5 +27,15 @@ export const ContestantInfo = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 2.5rem;
+  padding-bottom: 1rem;
 
+`
+
+export const ContestantDescription = styled.div`
+  border-top: 0.4rem solid ${({theme}) => theme.categoryTitle};
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  max-width: 18rem;
 `

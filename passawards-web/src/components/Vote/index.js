@@ -50,6 +50,7 @@ export default function Vote({ name, contestants, description, videoUrl }) {
             id={contestant.id}
             name={contestant.name} 
             image={contestant.image}
+            description={contestant.description}
           />
         ))}
       </ContestatContainer>
