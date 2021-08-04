@@ -40,7 +40,7 @@ export default function SearchForm() {
   return (
     <FormContainer onSubmit={e => e.preventDefault()}>
       <SeachInput
-        loading={isSearching}
+        loading={isSearching ? 1 : 0}
         placeholder="Busque uma categoria  &#x1F50D;"
         type="text"
         name="search_value"
