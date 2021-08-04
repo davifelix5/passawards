@@ -1,12 +1,16 @@
 import styled from 'styled-components'
 
+export const CategoryLabel = styled.label`
+  cursor: pointer;
+  margin: 1rem;
+`
+
 export const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
   max-width: 30rem;
-  margin: 1rem;
   background-color: ${({theme}) => theme.categoryBackground};
   border-radius: 15px;
   @media (max-width: 600px) {
@@ -33,7 +37,7 @@ export const Contestant = styled.li`
   margin: 0.5rem;
   div {
     margin-bottom: 0.5rem;
-    border-radius: 50%;                                               
+    border-radius: 50%;                                     
   }
   span {
     text-align: center;

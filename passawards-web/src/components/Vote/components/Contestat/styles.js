@@ -1,11 +1,17 @@
 import styled from 'styled-components'
 
+export const ContestantLabel = styled.label`
+  margin:  0 3rem 1.5rem 3rem;
+`
+
 export const ContestantContainer = styled.div`
 
   background-color: ${({theme}) => theme.categoryBackground};
   border-radius: 15px;
   min-width: 15rem;
-  margin:  0 3rem 1.5rem 3rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
 
   div img {
     border-radius: 50%;
@@ -28,14 +34,15 @@ export const ContestantInfo = styled.div`
   flex-direction: column;
   padding: 2.5rem;
   padding-bottom: 1rem;
-
+  border-bottom: ${({hasDescription, theme}) => hasDescription ?
+    `0.4rem solid ${theme.categoryTitle}` : ''};
 `
 
 export const ContestantDescription = styled.div`
-  border-top: 0.4rem solid ${({theme}) => theme.categoryTitle};
   padding: 1rem;
   font-size: 1.1rem;
   font-family: 'Poppins', sans-serif;
   color: white;
-  max-width: 18rem;
+  max-width: 20rem;
+  align-self: center;
 `
