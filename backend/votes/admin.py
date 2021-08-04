@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.db.models import Count
 from django.contrib.auth.models import Group
+
 from . import models
-from django.utils.translation import gettext_lazy as _
 
 class ContestantInLine(admin.TabularInline):
     model = models.Contestant
+    exclude = ['description']
 
 
 class CategoryAdmin(admin.ModelAdmin):
