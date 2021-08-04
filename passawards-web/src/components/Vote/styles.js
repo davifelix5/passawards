@@ -41,6 +41,6 @@ export const DescriptionContainer = styled.div`
 export const ContestatContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
 `

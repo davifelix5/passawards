@@ -45,7 +45,7 @@ export default function Vote({ category, error, sitekey, credentials }) {
       </VoteContextProvider>
     ) : (
       <CenterContainer>
-        <h1>Ocorre um erro de conexão no servidor :(</h1>
+        <h1 style={{textAlign: 'center'}}>Ocorre um erro de conexão no servidor :(</h1>
         <p>Tente novamente mais tarde!</p>
       </CenterContainer>
     )

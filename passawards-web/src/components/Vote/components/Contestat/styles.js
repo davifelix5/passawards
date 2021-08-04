@@ -5,7 +5,7 @@ export const ContestantContainer = styled.div`
   background-color: ${({theme}) => theme.categoryBackground};
   border-radius: 15px;
   min-width: 15rem;
-  margin-bottom: 1.5rem;
+  margin:  0 3rem 1.5rem 3rem;
 
   div img {
     border-radius: 50%;

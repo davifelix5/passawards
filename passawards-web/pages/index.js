@@ -50,8 +50,8 @@ export async function getStaticProps(context) {
         categories: [],
         filters: [],
         error: true,
-        revalidate: 60,
-      }
+      },
+      revalidate: 60,
     }
   
   }  
