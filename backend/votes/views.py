@@ -22,6 +22,9 @@ class FilterViewset(ModelViewSet):
 class CategoryViewset(ModelViewSet):
     model = models.Category
     queryset = models.Category.objects.all().order_by('id')
+    filter_fields = {
+        'category_type': ["in", "exact"],
+    }
 
     def get_serializer_class(self):
         if self.action == 'vote':
@@ -29,16 +32,6 @@ class CategoryViewset(ModelViewSet):
         elif self.request.method == 'POST':
             return serializers.CategoryCreateSerializer
         return serializers.CategorySerializer
-
-    def get_queryset(self):
-        queryset = models.Category.objects.all().order_by('id')
-        category_type = self.request.query_params.get('filter')
-        try:
-            return queryset.filter(category_type__id=int(category_type))
-        except TypeError:  # When filter is None
-            return queryset
-        except ValueError:  # When filter cannot be casted to int
-            return []
 
     @action(detail=True)
     def results(self, request, pk=None):

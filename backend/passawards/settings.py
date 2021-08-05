@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'drf_recaptcha',
     'corsheaders',
     'ckeditor',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -122,6 +123,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
         'votes.permissions.IsAdminOrReadOnly',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
     ],
 }
 
