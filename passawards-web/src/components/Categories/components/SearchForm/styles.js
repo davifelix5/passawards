@@ -10,7 +10,7 @@ export const FormContainer = styled.form`
 
 export const SeachInput = styled.input`
   border-radius: 15px;
-  padding: 0.5rem;
+  padding: 0.6rem;
   background-color: ${({theme}) => theme.searchBackground};
   color: #000;
   margin-bottom: 1rem;

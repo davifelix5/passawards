@@ -11,17 +11,18 @@ export function CategoriesContextProvider({children, value}) {
   const [categories, setCategories] = useState(allCategories)
   const [selectedFilters, setSelectedFilters] = useState([])
   const [search, setSearch] = useState('')
-  const [searching, setSearching] = useState(false)
   
   const filterCategories = () => {
+    const categoriesToFilter = search ? searchCategories() : allCategories
+    
     if (selectedFilters.length === 0) {
-      return allCategories
+      return categoriesToFilter
     }
 
     // TODO implement a call to the backend
     let newCategories = []
     for (let filterId of selectedFilters) {
-      newCategories = newCategories.concat(allCategories.filter(cat => cat.category_type == filterId))
+      newCategories = newCategories.concat(categoriesToFilter.filter(cat => cat.category_type == filterId))
     }
 
     return newCategories.sort((cat1, cat2) => cat1.id - cat2.id)
@@ -29,12 +30,10 @@ export function CategoriesContextProvider({children, value}) {
   
   const searchCategories = () => {
     // TODO implement a call to the backend
-    const categoriesToFilter = filterCategories()
-    const searched = categoriesToFilter.filter(category => {
+    const searched = allCategories.filter(category => {
       return category.name.toLowerCase().includes(search.toLowerCase())
     })
-    stopSearch()
-    setCategories(searched)
+    return searched
   }
 
   useEffect(() => {
@@ -42,7 +41,7 @@ export function CategoriesContextProvider({children, value}) {
   }, [selectedFilters, setCategories])
   
   useEffect(() => {
-    searchCategories()
+    setCategories(filterCategories())
   }, [search])
 
   const selectFilter = (filterId) => {
@@ -57,9 +56,6 @@ export function CategoriesContextProvider({children, value}) {
     setSelectedFilters(selectedFilters.filter(id => id !== filterId))
   }
 
-  const startSearch = () => setSearching(true)
-  const stopSearch = () => setSearching(false)
-
   return (
     <CategoriesContext.Provider value={{
       categories,
@@ -69,9 +65,6 @@ export function CategoriesContextProvider({children, value}) {
       clearSelectedFilters,
       removeFilter,
       setSearch,
-      isSearching: searching,
-      startSearch,
-      stopSearch,
     }}>
       {children}
     </CategoriesContext.Provider>
