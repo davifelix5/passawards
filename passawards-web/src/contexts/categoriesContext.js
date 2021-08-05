@@ -1,40 +1,40 @@
 import { createContext, useEffect, useState } from 'react'
 
+import api from '../services/api'
+
 const CategoriesContext = createContext({})
 
 export default CategoriesContext
 
-export function CategoriesContextProvider({children, value}) {
+export function CategoriesContextProvider({children, value, credentials}) {
+
+  const { USERNAME, PASSWORD } = credentials
+
   const allCategories = value.categories
   const filters = value.filters
   
   const [categories, setCategories] = useState(allCategories)
   const [selectedFilters, setSelectedFilters] = useState([])
   const [search, setSearch] = useState('')
+  const [isSearching, setIsSearching] = useState(false)
   
-  const filterCategories = () => {
-    const categoriesToFilter = search ? searchCategories() : allCategories
-    
-    if (selectedFilters.length === 0) {
-      return setCategories(categoriesToFilter)
+  const filterCategories = async () => {
+    if (selectedFilters.length === 0 && !search) {
+      stopSearch()
+      return setCategories(allCategories)
     }
+    
+    const response = await api(USERNAME, PASSWORD).get('/categories', {
+      params: {
+        search,
+        category_type__in: selectedFilters.join(',')
+      }
+    })
 
-    // TODO implement a call to the backend
-    const newCategories = selectedFilters.reduce((acc, filterId) =>
-      acc.concat(categoriesToFilter.filter(cat => cat.category_type == filterId))
-    , [])
-
-    setCategories(newCategories.sort((cat1, cat2) => cat1.id - cat2.id))
+    setCategories(response.data)
+    stopSearch()
   }
   
-  const searchCategories = () => {
-    // TODO implement a call to the backend
-    const searched = allCategories.filter(category => {
-      return category.name.toLowerCase().includes(search.toLowerCase())
-    })
-    return searched
-  }
-
   useEffect(filterCategories, [selectedFilters, setCategories, search])
 
   const selectFilter = (filterId) => {
@@ -49,6 +49,9 @@ export function CategoriesContextProvider({children, value}) {
     setSelectedFilters(selectedFilters.filter(id => id !== filterId))
   }
 
+  const startSearch = () => setIsSearching(true)
+  const stopSearch = () => setIsSearching(false)
+
   return (
     <CategoriesContext.Provider value={{
       categories,
@@ -58,6 +61,9 @@ export function CategoriesContextProvider({children, value}) {
       clearSelectedFilters,
       removeFilter,
       setSearch,
+      startSearch,
+      stopSearch,
+      isSearching,
     }}>
       {children}
     </CategoriesContext.Provider>
