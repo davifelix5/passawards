@@ -19,6 +19,7 @@ export default function SearchForm() {
     setSearch,
     isSearching,
     startSearch,
+    stopSearch,
   } = useContext(CategoriesContext)
 
   function debounceSearch(value) {
@@ -27,6 +28,7 @@ export default function SearchForm() {
     setSearchValue(value)
     
     if (!value) {
+      stopSearch()
       return setSearch('')
     }
 

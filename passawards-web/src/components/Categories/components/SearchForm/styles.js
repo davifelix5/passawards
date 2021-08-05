@@ -11,8 +11,8 @@ export const FormContainer = styled.form`
 export const SeachInput = styled.input`
   border-radius: 15px;
   padding: 0.5rem;
-  background-color: ${({theme}) => theme.filterBackground};
-  color: #fff;
+  background-color: ${({theme}) => theme.searchBackground};
+  color: #000;
   margin-bottom: 1rem;
   font-family: 'Poppins', sans-serif;
   font-size: 1.2rem;

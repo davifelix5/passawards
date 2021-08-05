@@ -29,10 +29,11 @@ export function CategoriesContextProvider({children, value}) {
   
   const searchCategories = () => {
     // TODO implement a call to the backend
-    const searched = filterCategories().filter(category => {
+    const categoriesToFilter = filterCategories()
+    const searched = categoriesToFilter.filter(category => {
       return category.name.toLowerCase().includes(search.toLowerCase())
     })
-    setSearching(false)
+    stopSearch()
     setCategories(searched)
   }
 
@@ -41,12 +42,7 @@ export function CategoriesContextProvider({children, value}) {
   }, [selectedFilters, setCategories])
   
   useEffect(() => {
-    if (search) {
-      searchCategories()
-    } else {
-      setSearching(false)
-      setCategories(filterCategories())
-    }
+    searchCategories()
   }, [search])
 
   const selectFilter = (filterId) => {
@@ -62,6 +58,7 @@ export function CategoriesContextProvider({children, value}) {
   }
 
   const startSearch = () => setSearching(true)
+  const stopSearch = () => setSearching(false)
 
   return (
     <CategoriesContext.Provider value={{
@@ -74,6 +71,7 @@ export function CategoriesContextProvider({children, value}) {
       setSearch,
       isSearching: searching,
       startSearch,
+      stopSearch,
     }}>
       {children}
     </CategoriesContext.Provider>
