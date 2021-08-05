@@ -6,7 +6,7 @@ import api from '../../src/services/api'
 
 import { 
   VoteContextProvider,
-} from '../../src/components/Vote/contexts/voteContext'
+} from '../../src/contexts/voteContext'
 
 import { 
   CenterContainer,
