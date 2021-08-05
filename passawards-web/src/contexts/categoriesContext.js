@@ -16,16 +16,15 @@ export function CategoriesContextProvider({children, value}) {
     const categoriesToFilter = search ? searchCategories() : allCategories
     
     if (selectedFilters.length === 0) {
-      return categoriesToFilter
+      return setCategories(categoriesToFilter)
     }
 
     // TODO implement a call to the backend
-    let newCategories = []
-    for (let filterId of selectedFilters) {
-      newCategories = newCategories.concat(categoriesToFilter.filter(cat => cat.category_type == filterId))
-    }
+    const newCategories = selectedFilters.reduce((acc, filterId) =>
+      acc.concat(categoriesToFilter.filter(cat => cat.category_type == filterId))
+    , [])
 
-    return newCategories.sort((cat1, cat2) => cat1.id - cat2.id)
+    setCategories(newCategories.sort((cat1, cat2) => cat1.id - cat2.id))
   }
   
   const searchCategories = () => {
@@ -36,13 +35,7 @@ export function CategoriesContextProvider({children, value}) {
     return searched
   }
 
-  useEffect(() => {
-    setCategories(filterCategories())
-  }, [selectedFilters, setCategories])
-  
-  useEffect(() => {
-    setCategories(filterCategories())
-  }, [search])
+  useEffect(filterCategories, [selectedFilters, setCategories, search])
 
   const selectFilter = (filterId) => {
     setSelectedFilters([...selectedFilters, filterId])
