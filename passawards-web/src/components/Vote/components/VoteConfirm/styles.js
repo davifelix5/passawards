@@ -91,6 +91,6 @@ export const CloseButton = styled.button`
 
 export const Feedback = styled.span`
   margin: 0.3rem;
-  color: ${({theme}) => theme.barBackground};
+  color: ${({theme}) => theme.strongTitle};
   display: ${({show}) => show ? 'block' : 'none'}
 `

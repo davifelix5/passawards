@@ -13,3 +13,10 @@ export const CategoriesWrapper = styled.div`
   align-items: center;
   width: 100%;
 `
+
+export const Message = styled.div`
+  color: #fff;
+  font-size: 1.3rem;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 0.6rem;
+`

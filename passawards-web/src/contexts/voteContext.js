@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 
-import api from '../../../services/api'
+import api from '../services/api'
 
 const VoteContext = createContext({})
 
@@ -36,7 +36,7 @@ export function VoteContextProvider({ children, categoryId, sitekey, credentials
         setMessage('')
       }, 2000);
     } catch (err) {
-      setMessage('Erro ao votar: Dados inválidos')
+      setMessage('reCAPTCHA inválido: tente novamente!')
     } finally {
       setLoading(false)
     }

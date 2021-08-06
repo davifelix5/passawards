@@ -12,7 +12,7 @@ import {
   Message
 } from '../../styles'
 
-import VoteContext from './contexts/voteContext'
+import VoteContext from '../../contexts/voteContext'
 
 import VoteConfirm from './components/VoteConfirm'
 

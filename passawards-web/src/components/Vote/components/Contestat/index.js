@@ -9,7 +9,7 @@ import {
   ContestantDescription,
 } from './styles'
 
-import VoteContext from '../../contexts/voteContext'
+import VoteContext from '../../../../contexts/voteContext'
 
 import MainButton from '../../../MainButton'
 

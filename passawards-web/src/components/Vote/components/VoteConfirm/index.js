@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import ReCAPTCHA from 'react-google-recaptcha'
 
-import VoteContext from '../../contexts/voteContext'
+import VoteContext from '../../../../contexts/voteContext'
 
 import {
   ModalContainer,
