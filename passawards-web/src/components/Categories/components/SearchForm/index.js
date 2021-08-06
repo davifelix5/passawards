@@ -14,13 +14,12 @@ export default function SearchForm() {
   
   const [searchTimeout, setSearchTimeout] = useState(null)
   const [searchValue, setSearchValue] = useState('')
-  const [isSearching, setIsSearching] = useState(false)
-
-  const stopSearch = () => setIsSearching(false)
-  const startSearch = () => setIsSearching(true)
 
   const {
     setSearch,
+    isSearching,
+    startSearch,
+    stopSearch,
   } = useContext(CategoriesContext)
 
   function debounceSearch(value) {
@@ -34,7 +33,6 @@ export default function SearchForm() {
     }
 
     const timeoutId = setTimeout(() => {
-      stopSearch()
       setSearch(value)
     }, DEBOUNCE_TIMEOUT)
     
