@@ -11,6 +11,7 @@ export const FilterContainer = styled.div`
   @media (max-width: 400px) {
     width: 95%;
     flex-direction: column;
+    margin: 2rem;
   }
 
 `
