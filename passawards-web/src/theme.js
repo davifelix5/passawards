@@ -8,7 +8,7 @@ const theme = {
   categoryBackground: '#023173',
   mainText: '#FFF',
   filterBackground: '#E84E2C',
-  searchBackground: '#FFF',
+
 }
 
 export default theme

@@ -13,6 +13,9 @@ export const CategoryContainer = styled.div`
   max-width: 30rem;
   background-color: ${({theme}) => theme.categoryBackground};
   border-radius: 15px;
+  @media (max-width: 600px) {
+    width: 60%;
+  }
   @media (max-width: 500px) {
     width: 95%;
   }
