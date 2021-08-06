@@ -21,14 +21,21 @@ export default function Filter() {
     selectedFilters, 
     selectFilter, 
     removeFilter, 
-    clearSelectedFilters 
+    clearSelectedFilters,
+    startSearch,
   } = useContext(CategoriesContext)
   
   function handleFilterClick(filterId) {
+    startSearch()
     if (selectedFilters.find(id => id === filterId)) {
       return removeFilter(filterId)
     }
     selectFilter(filterId)
+  }
+
+  function handleClearFilters() {
+    startSearch()
+    clearSelectedFilters()
   }
   
   return (
@@ -42,7 +49,7 @@ export default function Filter() {
       </FilterTitle>
       </label>
       <FilterContent active={active}>
-      <FilterItem selected={selectedFilters.length === 0} onClick={() => clearSelectedFilters()}>
+      <FilterItem selected={selectedFilters.length === 0} onClick={handleClearFilters}>
             <span>Todos</span>
       </FilterItem>
         {filters.map(filter => (

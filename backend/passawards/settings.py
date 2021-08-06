@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'drf_recaptcha',
     'corsheaders',
     'ckeditor',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

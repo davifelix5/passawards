@@ -1,33 +1,41 @@
 import { createContext, useEffect, useState } from 'react'
 
+import api from '../services/api'
+
 const CategoriesContext = createContext({})
 
 export default CategoriesContext
 
-export function CategoriesContextProvider({children, value}) {
+export function CategoriesContextProvider({children, value, credentials}) {
+
+  const { USERNAME, PASSWORD } = credentials
+
   const allCategories = value.categories
   const filters = value.filters
-
+  
   const [categories, setCategories] = useState(allCategories)
   const [selectedFilters, setSelectedFilters] = useState([])
+  const [search, setSearch] = useState('')
+  const [isSearching, setIsSearching] = useState(false)
   
-  
-  useEffect(() => {
-    const filterCategories = () => {
-      if (selectedFilters.length === 0) {
-        return setCategories(allCategories)
-      }
-
-      let newCategories = []
-      for (let filterId of selectedFilters) {
-        newCategories = newCategories.concat(allCategories.filter(cat => cat.category_type == filterId))
-      }
-
-      setCategories(newCategories.sort((cat1, cat2) => cat1.id - cat2.id))
+  const filterCategories = async () => {
+    if (selectedFilters.length === 0 && !search) {
+      stopSearch()
+      return setCategories(allCategories)
     }
+    
+    const response = await api(USERNAME, PASSWORD).get('/categories', {
+      params: {
+        search,
+        category_type__in: selectedFilters.join(',')
+      }
+    })
 
-    filterCategories()
-  }, [selectedFilters, setCategories])
+    setCategories(response.data)
+    stopSearch()
+  }
+  
+  useEffect(filterCategories, [selectedFilters, setCategories, search])
 
   const selectFilter = (filterId) => {
     setSelectedFilters([...selectedFilters, filterId])
@@ -41,6 +49,9 @@ export function CategoriesContextProvider({children, value}) {
     setSelectedFilters(selectedFilters.filter(id => id !== filterId))
   }
 
+  const startSearch = () => setIsSearching(true)
+  const stopSearch = () => setIsSearching(false)
+
   return (
     <CategoriesContext.Provider value={{
       categories,
@@ -49,6 +60,10 @@ export function CategoriesContextProvider({children, value}) {
       selectFilter,
       clearSelectedFilters,
       removeFilter,
+      setSearch,
+      startSearch,
+      stopSearch,
+      isSearching,
     }}>
       {children}
     </CategoriesContext.Provider>

@@ -18,7 +18,7 @@ export const ContestantContainer = styled.div`
   }
 
   h3 {
-    color: ${({theme}) => theme.categoryTitle};
+    color: ${({theme}) => theme.mainText};
     font-family: 'Patua One', cursive;
     margin-bottom: 0.3rem;
     font-size: 1.7rem;
@@ -35,7 +35,7 @@ export const ContestantInfo = styled.div`
   padding: 2.5rem;
   padding-bottom: 1rem;
   border-bottom: ${({hasDescription, theme}) => hasDescription ?
-    `0.4rem solid ${theme.categoryTitle}` : ''};
+    `0.4rem solid ${theme.barBackground}` : ''};
 `
 
 export const ContestantDescription = styled.div`
