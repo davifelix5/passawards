@@ -9,10 +9,10 @@ import {
 import api from '../src/services/api'
 
 
-export default function Home({ categories, filters, error, credentials }) {
+export default function Home({ categories, filters, error }) {
   return (
     !error ? (
-      <CategoriesContextProvider value={{categories, filters}} credentials={credentials}>
+      <CategoriesContextProvider value={{categories, filters}}>
         <Categories />
       </CategoriesContextProvider>
     ) : (
@@ -40,7 +40,6 @@ export async function getStaticProps(context) {
       props: {
         categories,
         filters,
-        credentials: { USERNAME, PASSWORD }
       },
       revalidate: 60,
     }
