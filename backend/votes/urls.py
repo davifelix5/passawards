@@ -9,7 +9,4 @@ router.register('filters', views.FilterViewset)
 router.register('categories', views.CategoryViewset)
 router.register('vote', views.VoteViewSet)
 
-urlpatterns = [
-    path('', include(router.urls)),
-    path('recaptcha/', views.recaptcha, name='recaptcha')
-]
+urlpatterns = router.urls

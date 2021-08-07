@@ -10,8 +10,6 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 
-from django.conf import settings
-
 from . import models
 from . import serializers
 
@@ -29,7 +27,7 @@ class CategoryViewset(ModelViewSet):
     filter_fields = {
         'category_type': ["in", "exact"],
     }
-    search_fields = ['name', 'description']
+    search_fields = ['name', 'description', 'contestants__name']
 
     def get_serializer_class(self):
         if self.action == 'vote':
@@ -58,10 +56,3 @@ class VoteViewSet(CreateModelMixin, viewsets.GenericViewSet):
     def create(self, request, *args, **kwargs):
         super().create(request, *args, **kwargs)
         return Response({'response': 'Vote registrado com sucesso'}, status=status.HTTP_201_CREATED)
-
-def recaptcha(request):
-    if request.method == 'POST':
-        print(request.POST)
-    return render(request, 'recaptcha.html', {
-        'site_key': settings.CAPTCHA_CLIENT_KEY
-    })
