@@ -1,14 +1,13 @@
 import { createContext, useEffect, useState } from 'react'
-
 import api from '../services/api'
+
 
 const CategoriesContext = createContext({})
 
 export default CategoriesContext
 
-export function CategoriesContextProvider({children, value, credentials}) {
+export function CategoriesContextProvider({children, value}) {
 
-  const { USERNAME, PASSWORD } = credentials
 
   const allCategories = value.categories
   const filters = value.filters
@@ -17,25 +16,34 @@ export function CategoriesContextProvider({children, value, credentials}) {
   const [selectedFilters, setSelectedFilters] = useState([])
   const [search, setSearch] = useState('')
   const [isSearching, setIsSearching] = useState(false)
-  
-  const filterCategories = async () => {
-    if (selectedFilters.length === 0 && !search) {
-      stopSearch()
-      return setCategories(allCategories)
-    }
-    
-    const response = await api(USERNAME, PASSWORD).get('/categories', {
+
+  const fetchCateogories = async () => {
+    startSearch()
+    const response = await api.get('/categories', {
       params: {
         search,
         category_type__in: selectedFilters.join(',')
       }
     })
+    return response.data
+  }
 
-    setCategories(response.data)
-    stopSearch()
+  function filterCategories() {
+    const emptyFilters = selectedFilters.length === 0
+    const allFiltersSelected = selectedFilters.length === filters.length
+    if ((emptyFilters || allFiltersSelected) && !search) {
+      stopSearch()
+      return setCategories(allCategories)
+    }
+    
+    fetchCateogories().then(response => {
+      stopSearch()
+      setCategories(response)
+    })
+
   }
   
-  useEffect(filterCategories, [selectedFilters, setCategories, search])
+  useEffect(filterCategories, [selectedFilters, setCategories, search, setIsSearching])
 
   const selectFilter = (filterId) => {
     setSelectedFilters([...selectedFilters, filterId])

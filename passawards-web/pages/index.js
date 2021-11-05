@@ -9,10 +9,10 @@ import {
 import api from '../src/services/api'
 
 
-export default function Home({ categories, filters, error, credentials }) {
+export default function Home({ categories, filters, error }) {
   return (
     !error ? (
-      <CategoriesContextProvider value={{categories, filters}} credentials={credentials}>
+      <CategoriesContextProvider value={{categories, filters}}>
         <Categories />
       </CategoriesContextProvider>
     ) : (
@@ -27,11 +27,9 @@ export default function Home({ categories, filters, error, credentials }) {
 export async function getStaticProps(context) {
 
   try {
-    const USERNAME = process.env.API_USERNAME
-    const PASSWORD = process.env.API_PASSWORD
 
-    const categoriesResponse = await api(USERNAME, PASSWORD).get('/categories/')
-    const filtersResponse = await api(USERNAME, PASSWORD).get('/filters/')
+    const categoriesResponse = await api.get('/categories/')
+    const filtersResponse = await api.get('/filters/')
     
     const categories = categoriesResponse.data
     const filters = filtersResponse.data
@@ -40,12 +38,11 @@ export async function getStaticProps(context) {
       props: {
         categories,
         filters,
-        credentials: { USERNAME, PASSWORD }
       },
       revalidate: 60,
     }
   } catch (err) {
-    
+    console.log('teste')
     return {
       props: {
         categories: [],

@@ -28,7 +28,6 @@ export default function SearchForm() {
     setSearchValue(value)
     
     if (!value) {
-      stopSearch()
       return setSearch('')
     }
 

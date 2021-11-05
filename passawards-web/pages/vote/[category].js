@@ -13,7 +13,7 @@ import {
   Loader
 } from '../../src/styles'
 
-export default function Vote({ category, error, sitekey, credentials }) {
+export default function Vote({ category, error, sitekey }) {
 
   const { isFallback } = useRouter()
 
@@ -35,7 +35,7 @@ export default function Vote({ category, error, sitekey, credentials }) {
 
   return (
     !error ? (
-      <VoteContextProvider categoryId={id} sitekey={sitekey} credentials={credentials}>
+      <VoteContextProvider categoryId={id} sitekey={sitekey}>
         <VotePage 
           contestants={contestants}
           description={description}
@@ -84,19 +84,15 @@ export async function getStaticProps(context) {
 
   try {
 
-    const USERNAME = process.env.API_USERNAME
-    const PASSWORD = process.env.API_PASSWORD
-    
     const { category } = context.params
     
-    const categoryResponse = await api(USERNAME, PASSWORD).get(`/categories/${category}/`)
+    const categoryResponse = await api.get(`/categories/${category}/`)
     const categoryData = categoryResponse.data
     
     return {
       props: {
         category: categoryData,
         sitekey: process.env.RECAPTCHA_CLIENT_KEY,
-        credentials: { USERNAME, PASSWORD }
       },
       revalidate: 60,
     }
