@@ -43,9 +43,6 @@ export default function SearchForm() {
     const emptySearch = !Boolean(search)
     const emptyFilters = !Boolean(filters.length)
 
-    console.log(emptySearch)
-    console.log(emptyFilters)
-
     if (emptySearch && emptyFilters) {
       return
     }
