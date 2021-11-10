@@ -1,63 +1,51 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useState } from 'react'
+import api from '../services/api'
+
 
 const CategoriesContext = createContext({})
 
 export default CategoriesContext
 
 export function CategoriesContextProvider({children, value}) {
+
+
   const allCategories = value.categories
   const filters = value.filters
   
   const [categories, setCategories] = useState(allCategories)
-  const [selectedFilters, setSelectedFilters] = useState([])
-  const [search, setSearch] = useState('')
-  
-  const filterCategories = () => {
-    const categoriesToFilter = search ? searchCategories() : allCategories
-    
-    if (selectedFilters.length === 0) {
-      return setCategories(categoriesToFilter)
-    }
+  const [isSearching, setIsSearching] = useState(false)
 
-    // TODO implement a call to the backend
-    const newCategories = selectedFilters.reduce((acc, filterId) =>
-      acc.concat(categoriesToFilter.filter(cat => cat.category_type == filterId))
-    , [])
-
-    setCategories(newCategories.sort((cat1, cat2) => cat1.id - cat2.id))
-  }
-  
-  const searchCategories = () => {
-    // TODO implement a call to the backend
-    const searched = allCategories.filter(category => {
-      return category.name.toLowerCase().includes(search.toLowerCase())
+  const fetchCateogories = async (search, selectedFilters) => {
+    const response = await api.get('/categories', {
+      params: {
+        search,
+        category_type__in: selectedFilters.join(',')
+      }
     })
-    return searched
+    return response.data
   }
 
-  useEffect(filterCategories, [selectedFilters, setCategories, search])
-
-  const selectFilter = (filterId) => {
-    setSelectedFilters([...selectedFilters, filterId])
+  async function filterCategories(search, selectedFilters) {   
+    startSearch()
+    const response = await fetchCateogories(search, selectedFilters)
+    stopSearch()
+    setCategories(response)
   }
 
-  const clearSelectedFilters = () => {
-    setSelectedFilters([])
-  }
+  const startSearch = () => setIsSearching(true)
+  const stopSearch = () => setIsSearching(false)
 
-  const removeFilter = (filterId) => {
-    setSelectedFilters(selectedFilters.filter(id => id !== filterId))
+  async function restoreCategories() {
+    await filterCategories('', [])
   }
 
   return (
     <CategoriesContext.Provider value={{
       categories,
       filters,
-      selectedFilters,
-      selectFilter,
-      clearSelectedFilters,
-      removeFilter,
-      setSearch,
+      isSearching,
+      filterCategories,
+      restoreCategories
     }}>
       {children}
     </CategoriesContext.Provider>

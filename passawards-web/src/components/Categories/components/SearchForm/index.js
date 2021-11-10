@@ -1,57 +1,108 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 
 import CategoriesContext from '../../../../contexts/categoriesContext'
 
-import {
+import { 
+  FilterInput,
+  FiltersContainer,
+  FilterInputLabel,
+  FilterInputWrapper,
+  FilterList,
+  FiltersLabel,
   FormContainer,
-  SeachInput,
   Loader,
+  ResetButton,
+  SubmitButton,
+  TextInput,
+  TextInputContainer, 
+  CheckboxContainer,
+  Checkmark
 } from './styles'
 
-const DEBOUNCE_TIMEOUT = 1 * 1000
-
 export default function SearchForm() {
-  
-  const [searchTimeout, setSearchTimeout] = useState(null)
-  const [searchValue, setSearchValue] = useState('')
-  const [isSearching, setIsSearching] = useState(false)
-
-  const stopSearch = () => setIsSearching(false)
-  const startSearch = () => setIsSearching(true)
-
-  const {
-    setSearch,
+  const { 
+    filters,
+    isSearching,
+    filterCategories,
+    restoreCategories,
   } = useContext(CategoriesContext)
 
-  function debounceSearch(value) {
-    startSearch()
-    clearTimeout(searchTimeout)
-    setSearchValue(value)
+  const [filtered, setFiltered] = useState(false)
+
+  const formRef = useRef(null)
+
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    const formData = new FormData(event.target)
     
-    if (!value) {
-      stopSearch()
-      return setSearch('')
+    const data = Array.from(formData)
+    const [, search] = data.pop()
+    const filters = data.map(entry => entry[1])
+    
+    const emptySearch = !Boolean(search)
+    const emptyFilters = !Boolean(filters.length)
+
+    console.log(emptySearch)
+    console.log(emptyFilters)
+
+    if (emptySearch && emptyFilters) {
+      return
     }
 
-    const timeoutId = setTimeout(() => {
-      stopSearch()
-      setSearch(value)
-    }, DEBOUNCE_TIMEOUT)
-    
-    setSearchTimeout(timeoutId)
+    filterCategories(search, filters).then(() => {
+      setFiltered(true)
+    })
+  }
+
+  function handleReset() {
+    restoreCategories().then(() => {
+      setFiltered(false)
+      formRef.current.reset()
+    })
   }
 
   return (
-    <FormContainer onSubmit={e => e.preventDefault()}>
-      <SeachInput
-        loading={isSearching ? 1 : 0}
-        placeholder="Busque uma categoria  &#x1F50D;"
-        type="text"
-        name="search_value"
-        value={searchValue}
-        onChange={e => debounceSearch(e.target.value)} 
-      />
-      {isSearching && <Loader />}
+    <FormContainer ref={formRef} onSubmit={handleSubmit}>
+
+      <FiltersContainer>
+        
+        <FiltersLabel>Filtros</FiltersLabel>
+
+        <FilterList>
+          {filters.map(filter => {
+            return (
+              <FilterInputWrapper key={filter.id}>
+                <FilterInputLabel htmlFor={filter.id}>
+                  {filter.name}
+                </FilterInputLabel>
+                <CheckboxContainer htmlFor={filter.id}>
+                  <FilterInput value={filter.id} name="filter" type="checkbox" id={filter.id} />
+                  <Checkmark />
+                </CheckboxContainer>
+              </FilterInputWrapper>
+            )
+          })}
+        </FilterList>
+
+      </FiltersContainer>
+
+      <TextInputContainer>
+        <TextInput name="search" type="text" placeholder="Pesquisar entre as categorias" />
+        {!isSearching && <SubmitButton disabled={isSearching}>Pesquisar</SubmitButton>}
+        {isSearching && <Loader />}
+      </TextInputContainer>
+
+      {filtered && !isSearching && (
+        <ResetButton 
+          disabled={isSearching}
+          onClick={handleReset}
+          type="button"
+        >
+            Resetar Filtros
+        </ResetButton>
+      )}
+
     </FormContainer>
   )
 }

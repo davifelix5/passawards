@@ -6,9 +6,8 @@ const VoteContext = createContext({})
 
 export default VoteContext
 
-export function VoteContextProvider({ children, categoryId, sitekey, credentials }) {
+export function VoteContextProvider({ children, categoryId, sitekey }) {
 
-  const { USERNAME, PASSWORD } = credentials
   const [recaptcha, setRecaptcha] = useState('')
   const [contestant, setContestant] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -23,7 +22,7 @@ export function VoteContextProvider({ children, categoryId, sitekey, credentials
     setLoading(true)
     setMessage('')
     try {
-      await api(USERNAME, PASSWORD).post('/vote/', {
+      await api.post('/vote/', {
         category: categoryId,
         contestant: contestant.id,
         recaptcha,
