@@ -21,7 +21,7 @@ export const CategoryContainer = styled.div`
 export const ContestantsContainer = styled.ul`
   padding: 1rem;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
   border-bottom: 5px solid ${({theme}) => theme.barBackground};
   width: 100%;
 `

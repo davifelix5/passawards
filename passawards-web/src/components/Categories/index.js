@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import ReactHtmlParser from 'react-html-parser'
 
 import Category from './components/Category'
-import Filter from './components/Filter'
 import SearchForm from './components/SearchForm'
 
 import CategoriesContext from '../../contexts/categoriesContext'
@@ -18,7 +17,6 @@ export default function Categories() {
   return (
     <CategoriesWrapper>
       <SearchForm />
-      <Filter />
       <CategoriesContainer>
         {categories.length > 0 ? categories.map(category => (
           <Category key={category.id} id={category.id} title={category.name} contestants={category.contestants.map(contestant => ({

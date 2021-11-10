@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useState } from 'react'
 import api from '../services/api'
 
 
@@ -13,12 +13,9 @@ export function CategoriesContextProvider({children, value}) {
   const filters = value.filters
   
   const [categories, setCategories] = useState(allCategories)
-  const [selectedFilters, setSelectedFilters] = useState([])
-  const [search, setSearch] = useState('')
   const [isSearching, setIsSearching] = useState(false)
 
-  const fetchCateogories = async () => {
-    startSearch()
+  const fetchCateogories = async (search, selectedFilters) => {
     const response = await api.get('/categories', {
       params: {
         search,
@@ -28,50 +25,27 @@ export function CategoriesContextProvider({children, value}) {
     return response.data
   }
 
-  function filterCategories() {
-    const emptyFilters = selectedFilters.length === 0
-    const allFiltersSelected = selectedFilters.length === filters.length
-    if ((emptyFilters || allFiltersSelected) && !search) {
-      stopSearch()
-      return setCategories(allCategories)
-    }
-    
-    fetchCateogories().then(response => {
-      stopSearch()
-      setCategories(response)
-    })
-
-  }
-  
-  useEffect(filterCategories, [selectedFilters, setCategories, search, setIsSearching])
-
-  const selectFilter = (filterId) => {
-    setSelectedFilters([...selectedFilters, filterId])
-  }
-
-  const clearSelectedFilters = () => {
-    setSelectedFilters([])
-  }
-
-  const removeFilter = (filterId) => {
-    setSelectedFilters(selectedFilters.filter(id => id !== filterId))
+  async function filterCategories(search, selectedFilters) {   
+    startSearch()
+    const response = await fetchCateogories(search, selectedFilters)
+    stopSearch()
+    setCategories(response)
   }
 
   const startSearch = () => setIsSearching(true)
   const stopSearch = () => setIsSearching(false)
 
+  async function restoreCategories() {
+    await filterCategories('', [])
+  }
+
   return (
     <CategoriesContext.Provider value={{
       categories,
       filters,
-      selectedFilters,
-      selectFilter,
-      clearSelectedFilters,
-      removeFilter,
-      setSearch,
-      startSearch,
-      stopSearch,
       isSearching,
+      filterCategories,
+      restoreCategories
     }}>
       {children}
     </CategoriesContext.Provider>
