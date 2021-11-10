@@ -14,11 +14,13 @@ export const CategoryContainer = styled.div`
   video {
     width: 50%;
     margin: 0 auto;
+    max-height: 305px;
   }
 
   @media (max-width: 665px) {
     video {
       width: 90%;
+      max-height: 155px;
     }
   }
 
