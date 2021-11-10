@@ -3,9 +3,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from . import utils, validators
 from ckeditor.fields import RichTextField
-# from gdstorage.storage import GoogleDriveStorage
-
-# gd_storage = GoogleDriveStorage()
 
 
 class CategoryType(models.Model):
