@@ -1,17 +1,16 @@
 import styled from 'styled-components'
 
-export const CategoriesContainer = styled.main`
+export const CategoriesContainer = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 `
 
-export const CategoriesWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+export const Section = styled.section`
+  & > h2 {
+    display: none;
+  }
 `
 
 export const Message = styled.div`

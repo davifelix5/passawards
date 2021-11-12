@@ -6,17 +6,13 @@ import {
   FilterInput,
   FiltersContainer,
   FilterInputLabel,
-  FilterInputWrapper,
-  FilterList,
-  FiltersLabel,
   FormContainer,
   Loader,
   ResetButton,
   SubmitButton,
-  TextInput,
   TextInputContainer, 
   CheckboxContainer,
-  Checkmark
+  Checkmark,
 } from './styles'
 
 export default function SearchForm() {
@@ -35,10 +31,8 @@ export default function SearchForm() {
     event.preventDefault()
 
     const formData = new FormData(event.target)
-    
-    const data = Array.from(formData)
-    const [, search] = data.pop()
-    const filters = data.map(entry => entry[1])
+    const filters = formData.getAll('filter')
+    const search = formData.get('search')
     
     const emptySearch = !Boolean(search)
     const emptyFilters = !Boolean(filters.length)
@@ -61,44 +55,56 @@ export default function SearchForm() {
 
   return (
     <FormContainer ref={formRef} onSubmit={handleSubmit}>
+      <fieldset>
+        <legend>Dados da categoria</legend>
+        <FiltersContainer>
+          
+          <strong>Filtros</strong>
 
-      <FiltersContainer>
-        
-        <FiltersLabel>Filtros</FiltersLabel>
+          <ul>
+            {filters.map(filter => {
+              return (
+                <li key={filter.id}>
+                  <FilterInputLabel htmlFor={filter.id}>
+                    {filter.name}
+                  </FilterInputLabel>
+                  <CheckboxContainer htmlFor={filter.id}>
+                    <FilterInput 
+                      value={filter.id} 
+                      name="filter" 
+                      type="checkbox" 
+                      id={filter.id} 
+                    />
+                    <Checkmark />
+                  </CheckboxContainer>
+                </li>
+              )
+            })}
+          </ul>
 
-        <FilterList>
-          {filters.map(filter => {
-            return (
-              <FilterInputWrapper key={filter.id}>
-                <FilterInputLabel htmlFor={filter.id}>
-                  {filter.name}
-                </FilterInputLabel>
-                <CheckboxContainer htmlFor={filter.id}>
-                  <FilterInput value={filter.id} name="filter" type="checkbox" id={filter.id} />
-                  <Checkmark />
-                </CheckboxContainer>
-              </FilterInputWrapper>
-            )
-          })}
-        </FilterList>
+        </FiltersContainer>
 
-      </FiltersContainer>
+        <TextInputContainer>
+          <input 
+            name="search" 
+            type="search" 
+            placeholder="Pesquisar entre as categorias"
+            aria-label="Parâmetro de busca para a categoria"
+          />
+          {!isSearching && <SubmitButton disabled={isSearching}>Pesquisar</SubmitButton>}
+          {isSearching && <Loader />}
+        </TextInputContainer>
 
-      <TextInputContainer>
-        <TextInput name="search" type="text" placeholder="Pesquisar entre as categorias" />
-        {!isSearching && <SubmitButton disabled={isSearching}>Pesquisar</SubmitButton>}
-        {isSearching && <Loader />}
-      </TextInputContainer>
-
-      {filtered && !isSearching && (
-        <ResetButton 
-          disabled={isSearching}
-          onClick={handleReset}
-          type="button"
-        >
-            Resetar Filtros
-        </ResetButton>
-      )}
+        {filtered && !isSearching && (
+          <ResetButton 
+            disabled={isSearching}
+            onClick={handleReset}
+            type="reset"
+          >
+              Resetar Filtros
+          </ResetButton>
+        )}
+      </fieldset>
 
     </FormContainer>
   )

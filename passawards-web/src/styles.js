@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 
-export const MainWrapper = styled.div`
+export const MainWrapper = styled.main`
   min-height: calc(100vh - 11.2rem);
   background-color: ${({theme}) => theme.mainBackground};
   padding: 1.5rem 130px;

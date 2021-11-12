@@ -2,10 +2,10 @@ import styled from 'styled-components'
 
 export const CategoryLabel = styled.label`
   cursor: pointer;
-  margin: 1rem;
-`
+  `
 
-export const CategoryContainer = styled.div`
+export const CategoryContainer = styled.li`
+  margin: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,7 +45,7 @@ export const Contestant = styled.li`
 
 export const CategoryDescription = styled.div`
   padding: 1rem;
-  h2 {
+  h3 {
     color: ${({theme}) => theme.categoryTitle};
     font-family: 'Patua One', cursive;
     margin-bottom: 0.3rem;

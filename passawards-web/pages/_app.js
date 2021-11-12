@@ -10,7 +10,7 @@ import '../src/global.css'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div>
+    <>
       <Head>
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.svg" />
@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
         </MainWrapper>
         <Footer />
       </ThemeProvider>
-    </div>
+    </>
   )
 }
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const CategoryContainer = styled.div`
+export const CategoryContainer = styled.article`
   display: flex;
   flex-direction: column;
   h1, h2 {
@@ -11,7 +11,12 @@ export const CategoryContainer = styled.div`
     margin-bottom: 1.5rem;
   }
 
+`
+
+export const DescriptionSection = styled.section`
   video {
+    display: flex;
+    flex-direction: column;
     width: 50%;
     margin: 0 auto;
     max-height: 305px;
@@ -24,9 +29,9 @@ export const CategoryContainer = styled.div`
     }
   }
 
-`
+`;
 
-export const DescriptionContainer = styled.div`
+export const DescriptionContainer = styled.section`
 
   margin: 1rem 0;
 
@@ -40,7 +45,7 @@ export const DescriptionContainer = styled.div`
 
 `
 
-export const ContestatContainer = styled.div`
+export const ContestatContainer = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;

@@ -32,7 +32,11 @@ export default function Contestant({ id, name, image, description }) {
             {ReactHtmlParser(description)}
           </ContestantDescription>
         )}
-        <MainButton onClick={() => setContestantToVote({id, name})} id={`vote-${id}`}>
+        <MainButton 
+          onClick={() => setContestantToVote({id, name})} 
+          id={`vote-${id}`}
+          aria-label="Votar"
+        >
           Votar
         </MainButton>
       </ContestantContainer>

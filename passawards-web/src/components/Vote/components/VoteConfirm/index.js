@@ -41,7 +41,7 @@ export default function VoteConfirm() {
   return (
     <Container>
       <ModalContainer>
-        <CloseButton onClick={handleCloseModal} />
+        <CloseButton aria-label="Fechar" onClick={handleCloseModal} />
         <ModalHeader>
           <h3>Passawards alerta:</h3>
         </ModalHeader>

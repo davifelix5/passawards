@@ -22,8 +22,8 @@ export default function Category({id, title, contestants, children}) {
   }
 
   return (
-    <CategoryLabel htmlFor={`vote-${id}`}>
-      <CategoryContainer>
+    <CategoryContainer>
+      <CategoryLabel htmlFor={`vote-${id}`}>
         <ContestantsContainer>
           {contestants.map(contestant => (
             <Contestant key={contestant.name}>
@@ -33,17 +33,18 @@ export default function Category({id, title, contestants, children}) {
           ))}     
         </ContestantsContainer>
         <CategoryDescription>
-          <h2>{title}</h2>
+          <h3>{title}</h3>
           {children}
         </CategoryDescription>
         <MainButton 
           fontSize="1.5rem" 
           onClick={handleVoteClick} 
           id={`vote-${id}`}
+          aria-label="Votar"
         >
           Votar
         </MainButton>
-      </CategoryContainer>
-    </CategoryLabel>
+      </CategoryLabel>
+    </CategoryContainer>
   )
 }

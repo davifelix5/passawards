@@ -6,6 +6,7 @@ import {
   CategoryContainer,
   DescriptionContainer,
   ContestatContainer,
+  DescriptionSection,
 } from './styles'
 
 import { 
@@ -31,30 +32,33 @@ export default function Vote({ name, contestants, description, videoUrl }) {
         </Message>
       )}
       {contestantToVote && <VoteConfirm />}
-      <h1>{name}</h1>
-      
-      <video controls>
-        <source src={videoUrl} type="video/mp4" />
-      </video>
-      
-      <DescriptionContainer>
-        {ReactHtmlParser(description)}
-      </DescriptionContainer>
 
-      <h2>Participantes</h2>
-      
-      <ContestatContainer>
-        {contestants.map(contestant => (
-          <Contestant 
-            key={contestant.id}
-            id={contestant.id}
-            name={contestant.name} 
-            image={contestant.image}
-            description={contestant.description}
-          />
-        ))}
-      </ContestatContainer>
+      <DescriptionSection>
+        <h1>{name}</h1>
+        
+        <video controls>
+          <source src={videoUrl} type="video/mp4" />
+        </video>
+        
+        <DescriptionContainer>
+          {ReactHtmlParser(description)}
+        </DescriptionContainer>
+      </DescriptionSection>
 
+      <section>
+        <h2>Participantes</h2>
+        <ContestatContainer>
+          {contestants.map(contestant => (
+            <Contestant 
+              key={contestant.id}
+              id={contestant.id}
+              name={contestant.name} 
+              image={contestant.image}
+              description={contestant.description}
+            />
+          ))}
+        </ContestatContainer>
+      </section>
     </CategoryContainer>
   )
 }
