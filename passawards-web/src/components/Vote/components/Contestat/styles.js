@@ -1,17 +1,17 @@
 import styled from 'styled-components'
 
-export const ContestantLabel = styled.label`
+export const ContestantContainer = styled.li`
   margin:  0 3rem 1.5rem 3rem;
-`
-
-export const ContestantContainer = styled.div`
-
   background-color: ${({theme}) => theme.categoryBackground};
   border-radius: 15px;
   min-width: 15rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+
+  label {
+    cursor: pointer;
+  }
 
   div img {
     border-radius: 50%;

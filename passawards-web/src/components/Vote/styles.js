@@ -45,7 +45,7 @@ export const DescriptionContainer = styled.section`
 
 `
 
-export const ContestatContainer = styled.section`
+export const ContestatContainer = styled.ul`
   display: flex;
   align-items: center;
   justify-content: center;

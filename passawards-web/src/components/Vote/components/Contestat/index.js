@@ -3,7 +3,6 @@ import { useContext } from 'react'
 import Image from 'next/image'
 
 import {
-  ContestantLabel,
   ContestantContainer,
   ContestantInfo,
   ContestantDescription,
@@ -21,8 +20,8 @@ export default function Contestant({ id, name, image, description }) {
   const { setContestantToVote } = useContext(VoteContext)
 
   return (
-    <ContestantLabel htmlFor={`vote-${id}`}>
-      <ContestantContainer>
+    <ContestantContainer>
+      <label htmlFor={`vote-${id}`}>
         <ContestantInfo hasDescription={description}>
           <Image height={160} width={160} layout="intrinsic" src={image} alt={name} />
           <h3>{name}</h3>
@@ -39,7 +38,7 @@ export default function Contestant({ id, name, image, description }) {
         >
           Votar
         </MainButton>
-      </ContestantContainer>
-    </ContestantLabel>
+      </label>
+    </ContestantContainer>
   )
 }
