@@ -2,10 +2,6 @@ import styled from 'styled-components'
 
 
 export const FormContainer = styled.form`
-  @media (max-width: 400px) {
-    width: 95%;
-  }
-
   fieldset {
     display: flex;
     flex-direction: column;
@@ -105,6 +101,10 @@ export const TextInputContainer = styled.div`
   
   width: 35rem;
   margin-top: 1rem;
+
+  @media (max-width: 400px) {
+    width: 100%;
+  }
 
   input {
     background-color: ${({theme}) => theme.searchBackground};

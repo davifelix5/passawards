@@ -26,7 +26,7 @@ export const ContestantsContainer = styled.ul`
   width: 100%;
 `
 
-export const Contestant = styled.li`
+export const Contestant = styled.figure`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,7 +36,7 @@ export const Contestant = styled.li`
     margin-bottom: 0.5rem;
     border-radius: 50%;                                     
   }
-  span {
+  figcaption {
     text-align: center;
     color: #FFF;
     font-family: 'Sigmar One', cursive;

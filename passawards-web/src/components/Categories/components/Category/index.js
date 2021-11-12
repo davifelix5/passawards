@@ -26,11 +26,13 @@ export default function Category({id, title, contestants, children}) {
       <CategoryLabel htmlFor={`vote-${id}`}>
         <ContestantsContainer>
           {contestants.map(contestant => (
-            <Contestant key={contestant.name}>
-              <Image layout='intrinsic' width={100} height={100} src={contestant.image} alt={contestant.name} />
-              <span>{contestant.name}</span>
-            </Contestant>
-          ))}     
+            <li>
+              <Contestant key={contestant.name}>
+                <Image layout='intrinsic' width={100} height={100} src={contestant.image} alt={contestant.name} />
+                <figcaption>{contestant.name}</figcaption>
+              </Contestant>
+            </li>
+          ))}
         </ContestantsContainer>
         <CategoryDescription>
           <h3>{title}</h3>
