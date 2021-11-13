@@ -26,7 +26,7 @@ export default function Category({id, title, contestants, children}) {
       <CategoryLabel htmlFor={`vote-${id}`}>
         <ContestantsContainer>
           {contestants.map(contestant => (
-            <li key={contestant.name}>
+            <li key={contestant.id}>
               <Contestant>
                 <Image layout='intrinsic' width={100} height={100} src={contestant.image} alt={contestant.name} />
                 <figcaption>{contestant.name}</figcaption>
