@@ -1,27 +1,21 @@
-import React, { useContext, useRef, useState } from 'react'
-
-import CategoriesContext from '../../../../contexts/categoriesContext'
+import React, { useRef, useState } from 'react'
 
 import { 
-  FilterInput,
   FiltersContainer,
   FilterInputLabel,
   FormContainer,
-  Loader,
   ResetButton,
   SubmitButton,
   TextInputContainer, 
   CheckboxContainer,
-  Checkmark,
 } from './styles'
 
-export default function SearchForm() {
-  const { 
-    filters,
-    isSearching,
-    filterCategories,
-    restoreCategories,
-  } = useContext(CategoriesContext)
+export default function SearchForm({
+  filters,
+  filterCategories,
+  restoreCategories,
+  isSearching
+}) {
 
   const [filtered, setFiltered] = useState(false)
 
@@ -41,16 +35,14 @@ export default function SearchForm() {
       return
     }
 
-    filterCategories(search, filters).then(() => {
-      setFiltered(true)
-    })
+    filterCategories(search, filters)
+    setFiltered(true)
   }
 
   function handleReset() {
-    restoreCategories().then(() => {
-      setFiltered(false)
-      formRef.current.reset()
-    })
+    restoreCategories()
+    setFiltered(false)
+    formRef.current.reset()
   }
 
   return (
@@ -69,13 +61,13 @@ export default function SearchForm() {
                     {filter.name}
                   </FilterInputLabel>
                   <CheckboxContainer htmlFor={filter.id}>
-                    <FilterInput 
+                    <input 
                       value={filter.id} 
                       name="filter" 
                       type="checkbox" 
                       id={filter.id} 
                     />
-                    <Checkmark />
+                    <span></span>
                   </CheckboxContainer>
                 </li>
               )
@@ -91,8 +83,7 @@ export default function SearchForm() {
             placeholder="Pesquisar entre as categorias"
             aria-label="Parâmetro de busca para a categoria"
           />
-          {!isSearching && <SubmitButton disabled={isSearching}>Pesquisar</SubmitButton>}
-          {isSearching && <Loader />}
+          <SubmitButton disabled={isSearching}>Pesquisar</SubmitButton>
         </TextInputContainer>
 
         {filtered && !isSearching && (

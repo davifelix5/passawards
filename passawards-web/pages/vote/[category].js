@@ -56,12 +56,19 @@ export async function getStaticPaths() {
   
   try {
     
-    const USERNAME = process.env.API_USERNAME 
-    const PASSWORD = process.env.API_PASSWORD 
+    const categoriesResponse = await api.get('/categories/')
+    const responseData = categoriesResponse.data
+    const categories = []
+    
+    for (let page=1; page<=responseData.page_count; page++) {
+      const pageCategories = await api.get('/categories/', {
+        params: {
+          page,
+        },
+      })
+      pageCategories.data.results.forEach(category => categories.push(category))
+    }
 
-    const categoriesResponse = await api(USERNAME, PASSWORD).get('/categories/')
-    const categories = categoriesResponse.data
-  
     const paths = categories.map(cat => {
       return {
         params: { category: String(cat.id) }
@@ -101,8 +108,8 @@ export async function getStaticProps(context) {
       props: {
         category: {},
         error: true,
-        revalidate: 60,
-      }
+      },
+      revalidate: 60,
     }
   }
 

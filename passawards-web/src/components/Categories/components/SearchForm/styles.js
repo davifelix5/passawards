@@ -57,13 +57,6 @@ export const FilterInputLabel = styled.label`
   }
 `
 
-export const FilterInput = styled.input`
-  display: none;
-  &:checked + span {
-    display: block;
-  }
-`
-
 export const CheckboxContainer = styled.label`
   width: 1rem;
   height: 1rem;
@@ -78,21 +71,28 @@ export const CheckboxContainer = styled.label`
   &:hover {
     border-color: ${({theme}) => theme.mainBackground}
   }
-  `
 
-export const Checkmark = styled.span`
-  background-color: ${({theme}) => theme.mainBackground};
-  height: 1rem;
-  width: 1rem;
-  border-radius: 50%;
+  input {
+    display: none;
+    &:checked + span {
+      display: block;
+    }
+  }
 
-  display: none;
+  span {
+    background-color: ${({theme}) => theme.mainBackground};
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
 
-  position: absolute;
-  bottom: 0;
-  left: 0;
+    display: none;
 
-  transform: translate(-1px, 1px);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    transform: translate(-1px, 1px);
+  }
 `
 
 export const TextInputContainer = styled.div`
@@ -147,25 +147,4 @@ export const ResetButton = styled.button`
 
   font-family: 'Nunito', sans-serif;
   font-size: 1.2rem;
-`
-
-export const Loader = styled.div`
-  @keyframes spin {
-    0% {
-      transform: rotate(0)
-      }
-      100% {
-        transform: rotate(360deg)
-      }
-  }
-  
-  width: 2rem;
-  height: 2rem;
-  margin: 0.5rem;
-  border-radius: 50%;
-  border: 0.4rem solid ${({ theme }) => theme.barBackground};
-  border-top: 0.4rem solid ${({theme}) => theme.categoryBackground};
-  
-  animation: spin 1s linear infinite;
-  animation: spin 1s linear infinite;
 `

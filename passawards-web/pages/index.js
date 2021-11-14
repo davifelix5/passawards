@@ -1,7 +1,5 @@
 import Categories from '../src/components/Categories'
 
-import { CategoriesContextProvider } from '../src/contexts/categoriesContext'
-
 import {
   CenterContainer,
 } from '../src/styles'
@@ -9,12 +7,10 @@ import {
 import api from '../src/services/api'
 
 
-export default function Home({ categories, filters, error }) {
+export default function Home({ categoriesData, filtersData, error }) {
   return (
     !error ? (
-      <CategoriesContextProvider value={{categories, filters}}>
-        <Categories />
-      </CategoriesContextProvider>
+      <Categories filters={filtersData} categoriesData={categoriesData} />
     ) : (
       <CenterContainer>
         <h1 style={{textAlign: 'center'}}>Ocorreu um erro de conexão no servidor :(</h1>
@@ -24,32 +20,35 @@ export default function Home({ categories, filters, error }) {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
 
   try {
+    const { page, search, type } = context.query
 
-    const categoriesResponse = await api.get('/categories/')
+    const categoriesResponse = await api.get('/categories/', {
+      params: {
+        page,
+        search,
+        category_type__in: type,
+      },
+    })
     const filtersResponse = await api.get('/filters/')
     
-    const categories = categoriesResponse.data
-    const filters = filtersResponse.data
-    
+    const categoriesData = categoriesResponse.data
+    const filtersData = filtersResponse.data
     return {
       props: {
-        categories,
-        filters,
+        categoriesData,
+        filtersData,
       },
-      revalidate: 60,
     }
   } catch (err) {
-    console.log('teste')
     return {
       props: {
-        categories: [],
-        filters: [],
+        categoriesData: {},
+        filtersData: [],
         error: true,
       },
-      revalidate: 60,
     }
   
   }  

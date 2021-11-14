@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 export const MainWrapper = styled.main`
   min-height: calc(100vh - 11.2rem);
+  display: flex;
+  flex-direction: column;
   background-color: ${({theme}) => theme.mainBackground};
   padding: 1.5rem 130px;
   @media (max-width: 1135px) {

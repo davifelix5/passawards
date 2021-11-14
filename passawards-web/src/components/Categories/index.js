@@ -1,36 +1,121 @@
-import { useContext } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import ReactHtmlParser from 'react-html-parser'
 
 import Category from './components/Category'
 import SearchForm from './components/SearchForm'
 
-import CategoriesContext from '../../contexts/categoriesContext'
+import ReactPaginate from 'react-paginate'
 
 import {
   Message,
   CategoriesContainer,
   Section,
+  PaginationContainer,
+  Loader,
 } from './styles'
 
-export default function Categories() {
-  const { categories } = useContext(CategoriesContext)
+export default function Categories({filters, categoriesData}) {
+
+  const router = useRouter()
+
+  const [isSearching, setIsSearching] = useState(false)
+  const [search, setSearch] = useState('')
+  const [selectedFilters, setSelectedFiltes] = useState([])
+
+  const hasCategories = categoriesData.results.length !== 0
+
+  const startSearch = () => setIsSearching(true)
+  const stopSearch = () => setIsSearching(false)
+  
+  function filterCategories(searchValue, selectedFiltersValue, page) {
+    setSearch(searchValue)
+    setSelectedFiltes(selectedFiltersValue)
+    router.push({
+      pathname: '/',
+      query: {
+        search: searchValue,
+        type: selectedFiltersValue.join(','),
+        page: page || 1
+      },
+    })
+  }
+
+  function restoreCategories() {
+    setSelectedFiltes([])
+    setSearch('')
+    router.push({
+      pathname: '/'
+    })
+  }
+
+  function handlePageChange( {selected} ) {
+    const page = selected + 1
+    filterCategories(search, selectedFilters, page)
+  }
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', url => {
+      const goingToVotePage = url.includes('vote')
+      if (!goingToVotePage) {
+        startSearch()
+      }
+    })
+    router.events.on('routeChangeComplete', stopSearch)
+    return () => {
+      router.events.off('routeChangeStart')
+      router.events.off('routeChangeComplete')
+    }
+  })
+
   return (
     <>
       <Section id="search-section">
         <h2>Filtre suas categorias</h2>
-        <SearchForm />
+        <SearchForm 
+          filters={filters}
+          filterCategories={filterCategories}
+          restoreCategories={restoreCategories}
+          isSearching={isSearching} 
+        />
       </Section>
       <Section>
         <h2>Categorias</h2>
-        <CategoriesContainer>
-          {categories.length > 0 ? categories.map(category => (
-            <Category key={category.id} id={category.id} title={category.name} contestants={category.contestants.map(contestant => ({
-              id: contestant.id, image: contestant.image, name: contestant.name,
-            }))}>
-              {ReactHtmlParser(category.description)}
-            </Category>
-          )) : <Message><p>Não há categorias</p></Message>}
-        </CategoriesContainer>
+        {isSearching && <Loader />}
+        
+        {!isSearching && hasCategories && (
+          <CategoriesContainer>
+            {categoriesData.results.map(category => (
+              <Category key={category.id} id={category.id} title={category.name} contestants={category.contestants}>
+                {ReactHtmlParser(category.description)}
+              </Category>
+            ))}
+          </CategoriesContainer>
+        )}
+        
+        {!isSearching && !hasCategories && (
+          <Message>Não há categorias</Message>
+        )}
+        
+        <PaginationContainer>
+          <ReactPaginate 
+            nextLabel=">"
+            previousLabel="<"
+
+            className="pagination-container"
+            pageClassName="pagination-page"
+            activeClassName="pagination-active"
+            nextClassName="pagination-page control"
+            previousClassName="pagination-page control"
+            breakClassName="pagination-page break"
+
+            marginPagesDisplayed={2}
+            pageCount={categoriesData.page_count}
+            pageRangeDisplayed={2}
+          
+            onPageChange={handlePageChange}
+          />
+        </PaginationContainer>
       </Section>
     </>
   )
