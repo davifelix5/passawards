@@ -14,6 +14,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'find_winner', 'category_type']
     list_display_links = ['name']
     inlines = [ContestantInLine]
+    ordering = ['id']
 
     @admin.display(description='Vencedor')
     def find_winner(self, obj):

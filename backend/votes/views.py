@@ -12,6 +12,7 @@ from rest_framework.filters import SearchFilter
 
 from . import models
 from . import serializers
+from . import pagination
 
 
 class FilterViewset(ModelViewSet):
@@ -23,6 +24,7 @@ class FilterViewset(ModelViewSet):
 class CategoryViewset(ModelViewSet):
     model = models.Category
     queryset = models.Category.objects.all().order_by('id')
+    pagination_class = pagination.CustomPaginator
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filter_fields = {
         'category_type': ["in", "exact"],
