@@ -8,11 +8,14 @@ import SearchForm from './components/SearchForm'
 import ReactPaginate from 'react-paginate'
 
 import {
+  Loader,
+} from '../../styles'
+
+import {
   Message,
   CategoriesContainer,
   Section,
   PaginationContainer,
-  Loader,
 } from './styles'
 
 export default function Categories({filters, categoriesData}) {
@@ -55,12 +58,7 @@ export default function Categories({filters, categoriesData}) {
   }
 
   useEffect(() => {
-    router.events.on('routeChangeStart', url => {
-      const goingToVotePage = url.includes('vote')
-      if (!goingToVotePage) {
-        startSearch()
-      }
-    })
+    router.events.on('routeChangeStart', startSearch)
     router.events.on('routeChangeComplete', stopSearch)
     return () => {
       router.events.off('routeChangeStart')

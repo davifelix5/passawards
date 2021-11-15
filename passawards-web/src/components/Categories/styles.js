@@ -66,24 +66,3 @@ export const PaginationContainer = styled.div`
     }
   }
 `
-
-export const Loader = styled.div`
-  @keyframes spin {
-    0% {
-      transform: rotate(0)
-      }
-      100% {
-        transform: rotate(360deg)
-      }
-  }
-  
-  width: 2rem;
-  height: 2rem;
-  margin: 0.5rem;
-  border-radius: 50%;
-  border: 0.4rem solid ${({ theme }) => theme.barBackground};
-  border-top: 0.4rem solid ${({theme}) => theme.categoryBackground};
-  
-  animation: spin 1s linear infinite;
-  animation: spin 1s linear infinite;
-`
