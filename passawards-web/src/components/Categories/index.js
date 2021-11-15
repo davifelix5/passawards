@@ -32,6 +32,7 @@ export default function Categories({filters, categoriesData}) {
   const stopSearch = () => setIsSearching(false)
   
   function filterCategories(searchValue, selectedFiltersValue, page) {
+    startSearch()
     setSearch(searchValue)
     setSelectedFiltes(selectedFiltersValue)
     router.push({
@@ -45,6 +46,7 @@ export default function Categories({filters, categoriesData}) {
   }
 
   function restoreCategories() {
+    startSearch()
     setSelectedFiltes([])
     setSearch('')
     router.push({
@@ -58,10 +60,8 @@ export default function Categories({filters, categoriesData}) {
   }
 
   useEffect(() => {
-    router.events.on('routeChangeStart', startSearch)
     router.events.on('routeChangeComplete', stopSearch)
     return () => {
-      router.events.off('routeChangeStart')
       router.events.off('routeChangeComplete')
     }
   })
