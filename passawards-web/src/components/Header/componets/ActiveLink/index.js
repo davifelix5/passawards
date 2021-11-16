@@ -4,11 +4,12 @@ import React, { Children } from 'react'
 
 export default function ActiveLink({ children, activeClassName, ...props }) {
   const { asPath } = useRouter()
+  const [absPath] = asPath.split('?')
   const child = Children.only(children)
   const childClassName = child.props.className || ''
 
   const className =
-    asPath === props.href || asPath === props.as
+    absPath === props.href || asPath === props.as
       ? `${childClassName} ${activeClassName}`.trim()
       : childClassName
 
