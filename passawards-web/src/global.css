@@ -35,3 +35,12 @@ a {
   color: white;
   text-decoration: none;
 }
+
+#nprogress .bar {
+  height: 5px;
+  background: #E84E2C;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #E84E2C, 0 0 5px #E84E2C;
+}

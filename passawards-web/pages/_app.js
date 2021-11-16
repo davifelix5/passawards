@@ -8,9 +8,8 @@ import Header from '../src/components/Header'
 import Footer from '../src/components/Footer'
 import { MainWrapper } from '../src/styles'
 
-import '../src/global.css'
-
 import 'nprogress/nprogress.css'
+import '../src/global.css'
 
 NProgress.configure({
   minimum: 0.3,
