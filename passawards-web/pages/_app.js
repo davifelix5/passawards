@@ -1,4 +1,6 @@
+import NProgress from 'nprogress'
 import Head from 'next/head'
+import Router from 'next/router'
 import { ThemeProvider } from 'styled-components'
 import theme from '../src/theme'
 
@@ -8,7 +10,21 @@ import { MainWrapper } from '../src/styles'
 
 import '../src/global.css'
 
+import 'nprogress/nprogress.css'
+
+NProgress.configure({
+  minimum: 0.3,
+  easing: 'ease',
+  speed: 800,
+  showSpinner: false,
+});
+
 function MyApp({ Component, pageProps }) {
+
+  Router.events.on('routeChangeStart', () => NProgress.start())
+
+  Router.events.on('routeChangeComplete', () => NProgress.done())
+
   return (
     <>
       <Head>
