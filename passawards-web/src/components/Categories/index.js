@@ -21,6 +21,7 @@ import {
 export default function Categories({filters, categoriesData}) {
 
   const router = useRouter()
+  const [,page] = router.asPath.split('page=')
 
   const [isSearching, setIsSearching] = useState(false)
   const [search, setSearch] = useState('')
@@ -110,6 +111,7 @@ export default function Categories({filters, categoriesData}) {
             marginPagesDisplayed={2}
             pageCount={categoriesData.page_count}
             pageRangeDisplayed={2}
+            initialPage={Number(page - 1) || 0}
           
             onPageChange={handlePageChange}
           />
