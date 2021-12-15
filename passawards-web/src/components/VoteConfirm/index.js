@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import ReCAPTCHA from 'react-google-recaptcha'
 
-import VoteContext from '../../../../contexts/voteContext'
+import VoteContext from '../../contexts/voteContext'
 
 import {
   ModalContainer,
@@ -16,9 +16,9 @@ import {
 
 import { 
   Loader
-} from '../../../../styles'
+} from '../../styles'
 
-import MainButton from '../../../MainButton'
+import MainButton from '../MainButton'
 
 export default function VoteConfirm() {
   

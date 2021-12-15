@@ -11,7 +11,7 @@ import {
 
 } from './styles'
 
-import MainButton from '../../../MainButton'
+import MainButton from '../MainButton'
 
 export default function Category({id, title, contestants, children}) {
   

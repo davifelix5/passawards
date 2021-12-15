@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import ReactHtmlParser from 'react-html-parser'
 
-import Category from './components/Category'
-import SearchForm from './components/SearchForm'
+import Category from '../../components/Category'
+import SearchForm from '../../components/SearchForm'
 
 import ReactPaginate from 'react-paginate'
 

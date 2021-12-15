@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-import VotePage from '../../src/components/Vote'
+import VotePage from '../../src/pages/Vote'
 
 import api from '../../src/services/api'
 

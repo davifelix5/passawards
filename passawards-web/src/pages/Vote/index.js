@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import Contestant from './components/Contestat'
+import Contestant from '../../components/Contestat'
 
 import {
   CategoryContainer,
@@ -15,7 +15,7 @@ import {
 
 import VoteContext from '../../contexts/voteContext'
 
-import VoteConfirm from './components/VoteConfirm'
+import VoteConfirm from '../../components/VoteConfirm'
 
 import ReactHtmlParser from 'react-html-parser'
 

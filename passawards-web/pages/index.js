@@ -1,4 +1,4 @@
-import Categories from '../src/components/Categories'
+import Categories from '../src/pages/Home'
 
 import {
   CenterContainer,
