@@ -7,10 +7,10 @@ import {
 import api from '../src/services/api'
 
 
-export default function Home({ categoriesData, filtersData, error }) {
+export default function Home({ categoriesData, search, page, filtersData, error }) {
   return (
     !error ? (
-      <Categories filters={filtersData} categoriesData={categoriesData} />
+      <Categories filters={filtersData} categoriesData={categoriesData} initialSearch={search} page={page} />
     ) : (
       <CenterContainer>
         <h1 style={{textAlign: 'center'}}>Ocorreu um erro de conexão no servidor :(</h1>
@@ -39,6 +39,8 @@ export async function getServerSideProps(context) {
     return {
       props: {
         categoriesData,
+        search: search || '',
+        page: page || 1,
         filtersData,
       },
     }

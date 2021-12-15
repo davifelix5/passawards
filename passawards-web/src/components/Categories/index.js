@@ -18,13 +18,12 @@ import {
   PaginationContainer,
 } from './styles'
 
-export default function Categories({filters, categoriesData}) {
+export default function Categories({filters, categoriesData, initialSearch, page}) {
 
   const router = useRouter()
-  const [,page] = router.asPath.split('page=')
 
   const [isSearching, setIsSearching] = useState(false)
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(initialSearch)
   const [selectedFilters, setSelectedFiltes] = useState([])
 
   const hasCategories = categoriesData.results.length !== 0
