@@ -110,7 +110,7 @@ export default function Categories({filters, categoriesData, initialSearch, page
             marginPagesDisplayed={2}
             pageCount={categoriesData.page_count}
             pageRangeDisplayed={2}
-            initialPage={Number(page) - 1 || 0}
+            forcePage={Number(page) - 1 || 0}
           
             onPageChange={handlePageChange}
           />
